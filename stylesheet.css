@@ -119,3 +119,17 @@ h1{
 .navBar a:hover{
   background-color: #C0C0C0;
 }
+.content {
+  grid-area: content;
+  display: grid; grid-template-areas:
+  "items"; grid-template-columns: 1fr;
+}
+.items {
+  grid-area: items;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(3, 150px);
+  grid-template-rows: 150px 150px 150px; }
+
+.items li { margin: 0;
+}

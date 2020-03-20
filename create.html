@@ -3,6 +3,21 @@
   <head>
     <title>Character Cache</title>
     <link rel="stylesheet" href="stylesheet.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#showHideDNDquiz").click(function(){
+          if($("#DNDquiz").is(":visible")) {
+            $("#DNDquiz").hide();
+            
+          }
+          else {
+            $("#DNDquiz").show();
+          }
+          return false;
+        });
+      });
+    </script>
   </head>
   <body>
     <div class="navBar">
@@ -12,10 +27,43 @@
       <a href="about.html">About</a>
       <a href="userProfile.html">User Profile</a>
     </div>
-
-    <div class="container create">
-      <p>This is the Create a Character page!</p>
+    <div class="Quiz">
+      <form id="quiz" name="quiz">
+        <p>What type of character will you be creating?</p>
+        <button id="showHideDNDquiz">DND</button>
+      </form>
+         <div id="DNDquiz">
+          <form>
+            <p>What is your character's name?</p>
+            <input type="text" id="characterName" value="Input Character Name">
+            <p>What is your character's race?</p>
+            <input type="radio" id="mc" name="race" value="Dwarf">Dwarf<br>
+            <input type="radio" id="mc" name="race" value="Elf">Elf<br>
+            <input type="radio" id="mc" name="race" value="Halfling">Halfling<br>
+            <input type="radio" id="mc" name="race" value="Human">Human<br>
+            <input type="radio" id="mc" name="race" value="Dragonborn">Dragonborn<br>
+            <input type="radio" id="mc" name="race" value="Gnome">Gnome<br>
+            <input type="radio" id="mc" name="race" value="Half-Elf">Half-Elf<br>
+            <input type="radio" id="mc" name="race" value="Half-Orc">Half-Orc<br>
+            <input type="radio" id="mc" name="race" value="Tiefling">Tiefling<br>
+            <p>What is your character's class?</p>
+            <input type="radio" id="mc" name="dndclass" value="Barbarian">Barbarian<br>
+            <input type="radio" id="mc" name="dndclass" value="Bard">Bard<br>
+            <input type="radio" id="mc" name="dndclass" value="Cleric">Cleric<br>
+            <input type="radio" id="mc" name="dndclass" value="Druid">Druid<br>
+            <input type="radio" id="mc" name="dndclass" value="Fighter">Fighter<br>
+            <input type="radio" id="mc" name="dndclass" value="Monk">Monk<br>
+            <input type="radio" id="mc" name="dndclass" value="Paladin">Paladin<br>
+            <input type="radio" id="mc" name="dndclass" value="Ranger">Ranger<br>
+            <input type="radio" id="mc" name="dndclass" value="Rogue">Rogue<br>
+            <input type="radio" id="mc" name="dndclass" value="Sorcerer">Sorcer<br>
+            <input type="radio" id="mc" name="dndclass" value="Warlock">Warlock<br>
+            <input type="radio" id="mc" name="dndclass" value="Wizard">Wizard<br>
+          </form>
+        </div>
     </div>
-
+    <div class="finishedCreating">
+      <button onclick="document.location = 'home.html'">Finished Creating</button>
+    </div>
   </body>
 </html>
