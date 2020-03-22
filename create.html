@@ -9,10 +9,20 @@
         $("#showHideDNDquiz").click(function(){
           if($("#DNDquiz").is(":visible")) {
             $("#DNDquiz").hide();
-            
           }
           else {
             $("#DNDquiz").show();
+          }
+          return false;
+        });
+      });
+      $(document).ready(function () {
+        $("#showHideAuthorQuiz").click(function(){
+          if($("#authorQuiz").is(":visible")) {
+            $("#authorQuiz").hide();
+          }
+          else {
+            $("#authorQuiz").show();
           }
           return false;
         });
@@ -30,99 +40,179 @@
     <div class="Quiz">
       <form id="quiz" name="quiz">
         <p>What type of character will you be creating?</p>
-        <button id="showHideDNDquiz">DND</button>
+        <button id="showHideDNDquiz">D&D</button>
+        <button id="showHideAuthorQuiz">Author</button>
       </form>
          <div id="DNDquiz">
           <form>
             <p>What is your character's name?</p>
-            <input type="text" id="characterName" placeholder="Input Character Name">
+              <input type="text" id="characterName" placeholder="Input Character Name">
             <p>What level is your character?</p>
-            <input type="number" id="level" name="abilityScore" min="0" max="20">
+              <input type="number" id="level" name="abilityScore" min="0" max="20">
             <p>What is your character's race?</p>
-            <input type="radio" id ="race1" name="race1" value="Dwarf">
-            <label for="race1">Dwarf</label><br>
-            <input type="radio" id="race2" name="race2" value="Elf">
-            <label for="race2">Elf</label><br>
-            <input type="radio" id="race3" name="race3" value="Halfling">
-            <label for="race3">Halfling</label><br>
-            <input type="radio" id="race4" name="race4" value="Human">
-            <label for="race4">Human</label><br>
-            <input type="radio" id="race5" name="race5" value="Dragonborn">
-            <label for="race5">Dragonborn</label><br>
-            <input type="radio" id="race6" name="race6" value="Gnome">
-            <label for="race6">Gnome</label><br>
-            <input type="radio" id="race7" name="race7" value="Half-Elf">
-            <label for="race7">Half-Elf</label><br>
-            <input type="radio" id="race8" name="race8" value="Half-Orc">
-            <label for="race8">Half-Orc</label><br>
-            <input type="radio" id="race9" name="race9" value="Tiefling">
-            <label for="race9">Tiefling</label><br>
+              <input type="radio" id ="race1" name="race1" value="Dwarf">
+              <label for="race1">Dwarf</label><br>
+              <input type="radio" id="race2" name="race2" value="Elf">
+              <label for="race2">Elf</label><br>
+              <input type="radio" id="race3" name="race3" value="Halfling">
+              <label for="race3">Halfling</label><br>
+              <input type="radio" id="race4" name="race4" value="Human">
+              <label for="race4">Human</label><br>
+              <input type="radio" id="race5" name="race5" value="Dragonborn">
+              <label for="race5">Dragonborn</label><br>
+              <input type="radio" id="race6" name="race6" value="Gnome">
+              <label for="race6">Gnome</label><br>
+              <input type="radio" id="race7" name="race7" value="Half-Elf">
+              <label for="race7">Half-Elf</label><br>
+              <input type="radio" id="race8" name="race8" value="Half-Orc">
+              <label for="race8">Half-Orc</label><br>
+              <input type="radio" id="race9" name="race9" value="Tiefling">
+              <label for="race9">Tiefling</label><br>
             <p>What is your character's class?</p>
-            <input type="radio" id="dndclass1" name="dndclass1" value="Barbarian">
-            <label for="dndclass1">Barbarian</label><br>
-            <input type="radio" id="dndclass2" name="dndclass2" value="Bard">
-            <label for="dndclass2">Bard</label><br>
-            <input type="radio" id="dndclass3" name="dndclass3" value="Cleric">
-            <label for="dndclass3">Cleric</label><br>
-            <input type="radio" id="dndclass4" name="dndclass4" value="Druid">
-            <label for="dndclass4">Druid</label><br>
-            <input type="radio" id="dndclass5" name="dndclass5" value="Fighter">
-            <label for="dndclass5">Fighter</label><br>
-            <input type="radio" id="dndclass6" name="dndclass6" value="Monk">
-            <label for="dndclass6">Monk</label><br>
-            <input type="radio" id="dndclass7" name="dndclass7" value="Paladin">
-            <label for="dndclass7">Paladin</label><br>
-            <input type="radio" id="dndclass8" name="dndclass8" value="Ranger">
-            <label for="dndclass8">Ranger</label><br>
-            <input type="radio" id="dndclass9" name="dndclass9" value="Rogue">
-            <label for="dndclass9">Rogue</label><br>
-            <input type="radio" id="dndclass10" name="dndclass10" value="Sorcerer">
-            <label for="dndclass10">Sorcerer</label><br>
-            <input type="radio" id="dndclass11" name="dndclass11" value="Warlock">
-            <label for="dndclass11">Warlock</label><br>
-            <input type="radio" id="dndclass12" name="dndclass12" value="Wizard">
-            <label for="dndclass12">Wizard</label><br>
+              <input type="radio" id="dndclass1" name="dndclass1" value="Barbarian">
+              <label for="dndclass1">Barbarian</label><br>
+              <input type="radio" id="dndclass2" name="dndclass2" value="Bard">
+              <label for="dndclass2">Bard</label><br>
+              <input type="radio" id="dndclass3" name="dndclass3" value="Cleric">
+              <label for="dndclass3">Cleric</label><br>
+              <input type="radio" id="dndclass4" name="dndclass4" value="Druid">
+              <label for="dndclass4">Druid</label><br>
+              <input type="radio" id="dndclass5" name="dndclass5" value="Fighter">
+              <label for="dndclass5">Fighter</label><br>
+              <input type="radio" id="dndclass6" name="dndclass6" value="Monk">
+              <label for="dndclass6">Monk</label><br>
+              <input type="radio" id="dndclass7" name="dndclass7" value="Paladin">
+              <label for="dndclass7">Paladin</label><br>
+              <input type="radio" id="dndclass8" name="dndclass8" value="Ranger">
+              <label for="dndclass8">Ranger</label><br>
+              <input type="radio" id="dndclass9" name="dndclass9" value="Rogue">
+              <label for="dndclass9">Rogue</label><br>
+              <input type="radio" id="dndclass10" name="dndclass10" value="Sorcerer">
+              <label for="dndclass10">Sorcerer</label><br>
+              <input type="radio" id="dndclass11" name="dndclass11" value="Warlock">
+              <label for="dndclass11">Warlock</label><br>
+              <input type="radio" id="dndclass12" name="dndclass12" value="Wizard">
+              <label for="dndclass12">Wizard</label><br>
             <p>Ability Scores: </p>
-            <label for="strength">Strength</label> 
-            <input type="number" id="abilityScore1" name="abilityScore1" value="strength"><br>
-            <label for="dexterity">Dexterity</label>
-            <input type="number" id="abilityScore2" name="abilityScore2" value="dexterity"><br>
-            <label for="constitution">Constitution</label> 
-            <input type="number" id="abilityScore3" name="abilityScore3" value="constitution"><br>
-            <label for="intellegence">Intellegence</label> 
-            <input type="number" id="abilityScore4" name="abilityScore4" value="intellegence"><br>
-            <label for="wisdom">Wisdom</label> 
-            <input type="number" id="abilityScore5" name="abilityScore5" value="wisdom"><br>
-            <label for="charisma">Charisma</label> 
-            <input type="number" id="abilityScore6" name="abilityScore6" value="charisma"><br>
+              <label for="strength">Strength</label> 
+              <input type="number" id="abilityScore1" name="abilityScore1" value="strength" min="0" max="25"><br>
+              <label for="dexterity">Dexterity</label>
+              <input type="number" id="abilityScore2" name="abilityScore2" value="dexterity" min="0" max="25"><br>
+              <label for="constitution">Constitution</label> 
+              <input type="number" id="abilityScore3" name="abilityScore3" value="constitution" min="0" max="25"><br>
+              <label for="intellegence">Intellegence</label> 
+              <input type="number" id="abilityScore4" name="abilityScore4" value="intellegence" min="0" max="25"><br>
+              <label for="wisdom">Wisdom</label> 
+              <input type="number" id="abilityScore5" name="abilityScore5" value="wisdom" min="0" max="25"><br>
+              <label for="charisma">Charisma</label> 
+              <input type="number" id="abilityScore6" name="abilityScore6" value="charisma" min="0" max="25"><br>
             <p>What are your character's ability saving throws?</p>
-            <input type="checkbox" id="savingthrow1" name="savingthrow1" value="stength">
-            <label for="savingthrow1">Strength</label>
-            <input type="checkbox" id="savingthrow2" name="savingthrow2" value="dexterity">
-            <label for="savingthrow2">Dexterity</label>
-            <input type="checkbox" id="savingthrow3" name="savingthrow3" value="constitution">
-            <label for="savingthrow3">Constitution</label>
-            <input type="checkbox" id="savingthrow4" name="savingthrow4" value="intellegence">
-            <label for="savingthrow4">Intellegence</label>
-            <input type="checkbox" id="savingthrow5" name="savingthrow5" value="wisdom">
-            <label for="savingthrow5">Wisdom</label>
-            <input type="checkbox" id="savingthrow6" name="savingthrow6" value="charisma">
-            <label for="savingthrow6">Charisma</label>
-            <p>What is your character's alignment?</p>
-            <input type="text" id="alignment" placeholder="Alignment">
+              <input type="checkbox" id="savingthrow1" name="savingthrow1" value="stength">
+              <label for="savingthrow1">Strength</label>
+              <input type="checkbox" id="savingthrow2" name="savingthrow2" value="dexterity">
+              <label for="savingthrow2">Dexterity</label>
+              <input type="checkbox" id="savingthrow3" name="savingthrow3" value="constitution">
+              <label for="savingthrow3">Constitution</label>
+              <input type="checkbox" id="savingthrow4" name="savingthrow4" value="intellegence">
+              <label for="savingthrow4">Intellegence</label>
+              <input type="checkbox" id="savingthrow5" name="savingthrow5" value="wisdom">
+              <label for="savingthrow5">Wisdom</label>
+              <input type="checkbox" id="savingthrow6" name="savingthrow6" value="charisma">
+              <label for="savingthrow6">Charisma</label>
+            <p>What is your character's passive perception?</p>
+              <input type="text" id="passiveperc" placeholder="Passive Perception">
             <p>How many hit points does your character have?</p>
-            <input type="text" id="HP" placeholder="Number of Hit Points">
+              <input type="text" id="HP" placeholder="Number of Hit Points">
             <p>What is your character's armor class?</p>
-            <input type="text" id="AC" placeholder="Armor Class">
+              <input type="text" id="AC" placeholder="Armor Class">
             <p>What is your character's proficiency bonus?</p>
-            <input type="text" id="PB" placeholder="Proficiency Bonus">
+              <input type="text" id="PB" placeholder="Proficiency Bonus">
             <p>What is your character's speed?</p>
-            <input type="text" id="speed" placeholder="Speed">
+              <input type="text" id="speed" placeholder="Speed">
             <p>What is your character's initiative bonus?</p>
-            <input type="text" id="initiative" placeholder="Initiative">
+              <input type="text" id="initiative" placeholder="Initiative">
+            <p>What are your character's skills?</p>
+              <input type="checkbox" id="skill1" name="skill1" value="Acrobatics">
+              <label for="skill1">Acrobatics</label>
+              <input type="checkbox" id="skill2" name="skill2" value="Animal Handling">
+              <label for="skill2">Animal Handling</label>
+              <input type="checkbox" id="skill3" name="skill3" value="Arcana">
+              <label for="skill3">Arcana</label>
+              <input type="checkbox" id="skill4" name="skill4" value="Athletics">
+              <label for="skill4">Athletics</label>
+              <input type="checkbox" id="skill5" name="skill5" value="Deception">
+              <label for="skill5">Deception</label>
+              <input type="checkbox" id="skill6" name="skill6" value="History">
+              <label for="skill6">History</label>
+              <input type="checkbox" id="skill7" name="skill7" value="Insight">
+              <label for="skill7">Insight</label>
+              <input type="checkbox" id="skill8" name="skill8" value="Intimidation">
+              <label for="skill8">Intimidation</label>
+              <input type="checkbox" id="skill9" name="skill9" value="Investigation">
+              <label for="skill9">Investigation</label> <br>
+              <input type="checkbox" id="skill10" name="skill10" value="Medicine">
+              <label for="skill10">Medicine</label>
+              <input type="checkbox" id="skill11" name="skill11" value="Nature">
+              <label for="skill11">Nature</label>
+              <input type="checkbox" id="skill12" name="skill12" value="Perception">
+              <label for="skill12">Perception</label>
+              <input type="checkbox" id="skill13" name="skill13" value="Performance">
+              <label for="skill13">Performance</label>
+              <input type="checkbox" id="skill14" name="skill14" value="Persuasion">
+              <label for="skill14">Persuasion</label>
+              <input type="checkbox" id="skill15" name="skill15" value="Religion">
+              <label for="skill15">Religion</label>
+              <input type="checkbox" id="skill16" name="skill16" value="Sleight of Hand">
+              <label for="skill16">Sleight of Hand</label>
+              <input type="checkbox" id="skill17" name="skill17" value="Stealth">
+              <label for="skill17">Stealth</label>
+              <input type="checkbox" id="skill18" name="skill18" value="Survival">
+              <label for="skill18">Survival</label>
+            <p>What is your character's alignment?</p>
+              <input type="text" id="alignment" placeholder="Alignment">
+            <p>What is your character's background?</p>
+              <input type="text" id="background" placeholder="Background">
+            <p>What are your character's proficiencies, traits, and abilities?</p>
+              <textarea id="traits" rows="5" cols="50" placeholder="Proficiencies, Traits, Abilities"></textarea>
+            <p>What languages does your character speak?</p>
+              <textarea id="langs" rows="3" cols="50" placeholder="Languages"></textarea>
+            <p>What weapons/spells does your character have?</p>
+              <textarea id="attacks" rows="7" cols="50" placeholder="Weapons and Spells (format as you would like)"></textarea>
+            <p>What other equipment does your character have?</p>
+              <textarea id="equipment" rows="7" cols="50" placeholder="Equipment"></textarea>
+            <p>Any further description:</p>
+              <textarea id="description" rows="7" cols="50" placeholder="Any extra character description"></textarea>
+            <p>Picture of your character:</p>
+              <label for="profilePic">Upload a character profile picture: </label>
+              <input type="file" id="profilePic" name="profilePic" accept="image/png, image/jpeg">
+            </form>
+        </div>
+        <div id="authorQuiz">
+          <form>
+            <p>What is your character's name?</p>
+              <input type="text" id="authorCharName" placeholder="Character Name">
+            <p>What is your character's age?</p>
+              <input type="number" id="age" name="age" min="0">
+            <p>What is your character's gender?</p>
+              <input type="text" id="gender" placeholder="Character Gender">
+            <p>What is your character's sexual orientation?</p>
+              <input type="text" id="sexOrientation" placeholder="Sexual orientation?">
+            <p>Physical Description</p>
+              <textarea id="physical" rows="5" cols="50" placeholder="Physical Description"></textarea>
+            <p>What is your character's profession?</p>
+              <input type="text" id="profession" placeholder="Character Profession">
+            <p>What are some traits of your character?</p>
+              <textarea id="equipment" rows="3" cols="50" placeholder="Traits"></textarea>
+            <p>What is your character's motivation?</p>
+              <textarea id="description" rows="3" cols="50" placeholder="Character Motivation"></textarea>
+            <p>Any further description:</p>
+              <textarea id="description" rows="7" cols="50" placeholder="Any extra character description"></textarea>
+            <p>Picture of your character:</p>
+              <label for="profilePic">Upload a character profile picture: </label>
+              <input type="file" id="profilePic" name="profilePic" accept="image/png, image/jpeg">
           </form>
         </div>
-    </div>
+    </div> <br>
     <div class="finishedCreating">
       <button onclick="document.location = 'home.html'">Finished Creating</button>
     </div>
