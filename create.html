@@ -6,17 +6,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
       $(document).ready(function () {
+        $("#DNDquiz").hide();
         $("#showHideDNDquiz").click(function(){
-          if($("#DNDquiz").is(":visible")) {
+         if($("#DNDquiz").is(":visible")) {
             $("#DNDquiz").hide();
           }
           else {
             $("#DNDquiz").show();
           }
-          return false;
+          return false; 
         });
       });
       $(document).ready(function () {
+        $("#authorQuiz").hide();
         $("#showHideAuthorQuiz").click(function(){
           if($("#authorQuiz").is(":visible")) {
             $("#authorQuiz").hide();
