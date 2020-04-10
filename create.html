@@ -218,5 +218,56 @@
     <div class="finishedCreating">
       <button onclick="document.location = 'home.html'">Finished Creating</button>
     </div>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A",
+        authDomain: "character-cache-cc142.firebaseapp.com",
+        databaseURL: "https://character-cache-cc142.firebaseio.com",
+        projectId: "character-cache-cc142",
+        storageBucket: "character-cache-cc142.appspot.com",
+        messagingSenderId: "1031944349621",
+        appId: "1:1031944349621:web:158ad89eda56b305599bfc",
+        measurementId: "G-7LMFF4156H"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+      const firebase = require("firebase");
+      // Required for side-effects
+      require("firebase/firestore");
+
+      // Initialize Cloud Firestore through Firebase
+      firebase.initializeApp({
+        apiKey: '### FIREBASE API KEY ###',
+        authDomain: '### FIREBASE AUTH DOMAIN ###',
+        projectId: '### CLOUD FIRESTORE PROJECT ID ###'
+      });
+
+      var db = firebase.firestore();
+
+      db.collection("users").add({
+          first: "Ada",
+          last: "Lovelace",
+          born: 1815
+      })
+      .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+      });
+      test.firestore.js
+
+    </script>
   </body>
 </html>
