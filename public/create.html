@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Character Cache</title>
-    <link rel="stylesheet" href="stylesheet.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-        https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
 
-    <script>
-      // Your web app's Firebase configuration
+    <link rel="stylesheet" href="stylesheet.css">
+    <title>Character Cache</title>
+    <script type="module">
+      import * as firebase from 'firebase'
+      import 'firebase/firestore'
+      import config from './config'
+      export const firebaseApp = firebase.initializeApp(config)
+      export const firestore = firebase.firestore()
       var firebaseConfig = {
         apiKey: "AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A",
         authDomain: "character-cache-cc142.firebaseapp.com",
@@ -26,10 +27,11 @@
         measurementId: "G-7LMFF4156H"
       };
       // Initialize Firebase
+      //const firebase = require("firebase");
       firebase.initializeApp(firebaseConfig);
       firebase.analytics();
-      const firebase = require("firebase");
       // Required for side-effects
+      require("firebase/auth");
       require("firebase/firestore");
 
       // Initialize Cloud Firestore through Firebase
@@ -39,12 +41,12 @@
         projectId: 'character-cache-cc142'
       });
 
-      var config = {
-      apiKey: "AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A",
-      authDomain: "character-cache-cc142.firebaseapp.com",
-      databaseURL: "https://character-cache-cc142.firebaseio.com",
-      storageBucket: "character-cache-cc142.appspot.com"
-  };
+  //     var config = {
+  //     apiKey: "AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A",
+  //     authDomain: "character-cache-cc142.firebaseapp.com",
+  //     databaseURL: "https://character-cache-cc142.firebaseio.com",
+  //     storageBucket: "character-cache-cc142.appspot.com"
+  // };
       firebase.initializeApp(config);
 
       var database=firebase.database(); 
