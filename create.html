@@ -45,8 +45,56 @@
       databaseURL: "https://character-cache-cc142.firebaseio.com",
       storageBucket: "character-cache-cc142.appspot.com"
   };
-  firebase.initializeApp(config);
+      firebase.initializeApp(config);
 
+      var database=firebase.database(); 
+
+      document.getElementById("DNDquiz").addEventListener("finishedCreating",submitDNDForm);
+      document.getElementById("authorQuiz").addEventListener("finishedCreating",submitAuthorForm);
+
+      function submitDNDForm(e){
+        e.preventDefault(); 
+
+        var charName=getInputVal("characterName");
+        var level=getInputVal("level");
+        var race=getRace(); 
+        var dndClass=getClass(); 
+
+        saveCharacter(charName, level, race, dndClass);
+      }
+
+      function saveCharacter(charName, level, race, dndClass){
+        var newCharacter= database.push(); 
+        newCharacter.set({
+          characterName: charName,
+          level: level,
+          race: race,
+          dndClass: dndClass
+        }); 
+      }
+
+      function submitAuthorForm(e){
+
+      }
+
+      function chooseRace(e){
+        document.getElementById("raceResult").value=e.value; 
+      }
+
+      function chooseClass(e){
+        document.getElementById("classResult").value=e.value; 
+      }
+
+      function getRace(){
+        document.getElementById("raceResult").value; 
+      }
+      function getClass(){
+        return document.getElementById("classResult").value; 
+      }
+      
+      function getInputVal(id){
+        return document.getElementById(id).value;
+      }
     </script>
     <script>
       $(document).ready(function () {
@@ -96,49 +144,51 @@
             <p>What level is your character?</p>
               <input type="number" id="level" name="abilityScore" min="0" max="20">
             <p>What is your character's race?</p>
-              <input type="radio" id ="race1" name="race1" value="Dwarf">
+              <input type="radio" id ="race" name="race" onclick="chooseRace(this)" value="Dwarf">
               <label for="race1">Dwarf</label><br>
-              <input type="radio" id="race2" name="race2" value="Elf">
+              <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Elf">
               <label for="race2">Elf</label><br>
-              <input type="radio" id="race3" name="race3" value="Halfling">
+              <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Halfling">
               <label for="race3">Halfling</label><br>
-              <input type="radio" id="race4" name="race4" value="Human">
+              <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Human">
               <label for="race4">Human</label><br>
-              <input type="radio" id="race5" name="race5" value="Dragonborn">
+              <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Dragonborn">
               <label for="race5">Dragonborn</label><br>
-              <input type="radio" id="race6" name="race6" value="Gnome">
+              <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Gnome">
               <label for="race6">Gnome</label><br>
-              <input type="radio" id="race7" name="race7" value="Half-Elf">
+              <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Half-Elf">
               <label for="race7">Half-Elf</label><br>
-              <input type="radio" id="race8" name="race8" value="Half-Orc">
+              <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Half-Orc">
               <label for="race8">Half-Orc</label><br>
-              <input type="radio" id="race9" name="race9" value="Tiefling">
+              <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Tiefling">
               <label for="race9">Tiefling</label><br>
+              <input type="text" id="raceResult">
             <p>What is your character's class?</p>
-              <input type="radio" id="dndclass1" name="dndclass1" value="Barbarian">
+              <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Barbarian">
               <label for="dndclass1">Barbarian</label><br>
-              <input type="radio" id="dndclass2" name="dndclass2" value="Bard">
+              <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Bard">
               <label for="dndclass2">Bard</label><br>
-              <input type="radio" id="dndclass3" name="dndclass3" value="Cleric">
+              <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Cleric">
               <label for="dndclass3">Cleric</label><br>
-              <input type="radio" id="dndclass4" name="dndclass4" value="Druid">
+              <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Druid">
               <label for="dndclass4">Druid</label><br>
-              <input type="radio" id="dndclass5" name="dndclass5" value="Fighter">
+              <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Fighter">
               <label for="dndclass5">Fighter</label><br>
-              <input type="radio" id="dndclass6" name="dndclass6" value="Monk">
+              <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Monk">
               <label for="dndclass6">Monk</label><br>
-              <input type="radio" id="dndclass7" name="dndclass7" value="Paladin">
+              <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Paladin">
               <label for="dndclass7">Paladin</label><br>
-              <input type="radio" id="dndclass8" name="dndclass8" value="Ranger">
+              <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Ranger">
               <label for="dndclass8">Ranger</label><br>
-              <input type="radio" id="dndclass9" name="dndclass9" value="Rogue">
+              <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Rogue">
               <label for="dndclass9">Rogue</label><br>
-              <input type="radio" id="dndclass10" name="dndclass10" value="Sorcerer">
+              <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Sorcerer">
               <label for="dndclass10">Sorcerer</label><br>
-              <input type="radio" id="dndclass11" name="dndclass11" value="Warlock">
+              <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Warlock">
               <label for="dndclass11">Warlock</label><br>
-              <input type="radio" id="dndclass12" name="dndclass12" value="Wizard">
+              <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Wizard">
               <label for="dndclass12">Wizard</label><br>
+              <input type="text" id="classResult">
             <p>Ability Scores: </p>
               <label for="strength">Strength</label> 
               <input type="number" id="abilityScore1" name="abilityScore1" value="strength" min="0" max="25"><br>
@@ -231,6 +281,9 @@
             <p>Picture of your character:</p>
               <label for="profilePic">Upload a character profile picture: </label>
               <input type="file" id="profilePic" name="profilePic" accept="image/png, image/jpeg">
+            <div>
+              <button onclick="document.location = 'home.html'" id="finshedCreating">Finished Creating</button>
+            </div>
             </form>
         </div>
         <div id="authorQuiz">
@@ -256,11 +309,11 @@
             <p>Picture of your character:</p>
               <label for="profilePic">Upload a character profile picture: </label>
               <input type="file" id="profilePic" name="profilePic" accept="image/png, image/jpeg">
+            <div>
+              <button id="finshedCreating">Finished Creating</button>
+            </div>
           </form>
         </div>
     </div> <br>
-    <div class="finishedCreating">
-      <button onclick="document.location = 'home.html'">Finished Creating</button>
-    </div>
   </body>
 </html>
