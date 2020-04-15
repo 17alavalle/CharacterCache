@@ -27,7 +27,6 @@
         measurementId: "G-7LMFF4156H"
       };
       // Initialize Firebase
-      //const firebase = require("firebase");
       firebase.initializeApp(firebaseConfig);
       firebase.analytics();
       // Required for side-effects
@@ -40,13 +39,7 @@
         authDomain: 'character-cache-cc142.firebaseapp.com',
         projectId: 'character-cache-cc142'
       });
-
-  //     var config = {
-  //     apiKey: "AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A",
-  //     authDomain: "character-cache-cc142.firebaseapp.com",
-  //     databaseURL: "https://character-cache-cc142.firebaseio.com",
-  //     storageBucket: "character-cache-cc142.appspot.com"
-  // };
+      
       firebase.initializeApp(config);
 
       var database=firebase.database(); 
