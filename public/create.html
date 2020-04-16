@@ -1,21 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
-    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
-
-    <link rel="stylesheet" href="stylesheet.css">
-    <title>Character Cache</title>
-    <script type="module">
-      import * as firebase from 'firebase'
-      import 'firebase/firestore'
-      import config from './config'
-      export const firebaseApp = firebase.initializeApp(config)
-      export const firestore = firebase.firestore()
+    <script>
       var firebaseConfig = {
         apiKey: "AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A",
         authDomain: "character-cache-cc142.firebaseapp.com",
@@ -26,72 +13,7 @@
         appId: "1:1031944349621:web:158ad89eda56b305599bfc",
         measurementId: "G-7LMFF4156H"
       };
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      firebase.analytics();
-      // Required for side-effects
-      require("firebase/auth");
-      require("firebase/firestore");
 
-      // Initialize Cloud Firestore through Firebase
-      firebase.initializeApp({
-        apiKey: 'AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A',
-        authDomain: 'character-cache-cc142.firebaseapp.com',
-        projectId: 'character-cache-cc142'
-      });
-      
-      firebase.initializeApp(config);
-
-      var database=firebase.database(); 
-
-      document.getElementById("DNDquiz").addEventListener("finishedCreating",submitDNDForm);
-      document.getElementById("authorQuiz").addEventListener("finishedCreating",submitAuthorForm);
-
-      function submitDNDForm(e){
-        e.preventDefault(); 
-
-        var charName=getInputVal("characterName");
-        var level=getInputVal("level");
-        var race=getRace(); 
-        var dndClass=getClass(); 
-
-        saveCharacter(charName, level, race, dndClass);
-      }
-
-      function saveCharacter(charName, level, race, dndClass){
-        var newCharacter= database.push(); 
-        newCharacter.set({
-          characterName: charName,
-          level: level,
-          race: race,
-          dndClass: dndClass
-        }); 
-      }
-
-      function submitAuthorForm(e){
-
-      }
-
-      function chooseRace(e){
-        document.getElementById("raceResult").value=e.value; 
-      }
-
-      function chooseClass(e){
-        document.getElementById("classResult").value=e.value; 
-      }
-
-      function getRace(){
-        document.getElementById("raceResult").value; 
-      }
-      function getClass(){
-        return document.getElementById("classResult").value; 
-      }
-      
-      function getInputVal(id){
-        return document.getElementById(id).value;
-      }
-    </script>
-    <script>
       $(document).ready(function () {
         $("#DNDquiz").hide();
         $("#showHideDNDquiz").click(function(){
@@ -116,9 +38,22 @@
           return false;
         });
       }); 
+
+      
     </script>
   </head>
   <body>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+    <link rel="stylesheet" href="stylesheet.css">
+    <title>Character Cache</title>
+    <script src="/__/firebase/7.14.0/firebase-app.js"></script>
+    <script src="/__/firebase/7.14.0/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.0/firebase-firestore.js"></script>
+    <script src="/__/firebase/init.js"></script>
     <div class="navBar">
       <img class="logo" src="images/Logo no border.png" alt="CharacterCache Logo">
       <a href="home.html">Home</a>
@@ -131,6 +66,28 @@
         <p>What type of character will you be creating?</p>
         <button id="showHideDNDquiz">D&D</button>
         <button id="showHideAuthorQuiz">Author</button>
+        <script>
+        function chooseRace(e){
+          document.getElementById("raceResult").value=e; 
+        }
+        window.chooseRace=chooseRace;
+        function chooseClass(e){
+          document.getElementById("classResult").value=e.value; 
+        }
+        window.chooseClass=chooseClass; 
+        function getRace(){
+          document.getElementById("raceResult").value; 
+        }
+        var jsReference=firebaseConstructor(); 
+        var database=jsReference.getDatabase(); 
+        database.ref('characters') .set('Abu Simbel')
+.then(() => {
+// log data set success to console
+console.log('data set...'); })
+.catch((e) => {
+// catcg error from Firebase - error logged to console console.log('error returned', e);
+});
+      </script>
       </form>
          <div id="DNDquiz">
           <form>
@@ -139,23 +96,23 @@
             <p>What level is your character?</p>
               <input type="number" id="level" name="abilityScore" min="0" max="20">
             <p>What is your character's race?</p>
-              <input type="radio" id ="race" name="race" onclick="chooseRace(this)" value="Dwarf">
+              <input type="radio" id ="race" name="race" onclick="chooseRace(this.value)" value="Dwarf">
               <label for="race1">Dwarf</label><br>
-              <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Elf">
+              <input type="radio" id="race" name="race" onclick="chooseRace(this.value)" value="Elf">
               <label for="race2">Elf</label><br>
-              <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Halfling">
+              <input type="radio" id="race" name="race" onclick="chooseRace(this.value)" value="Halfling">
               <label for="race3">Halfling</label><br>
-              <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Human">
+              <input type="radio" id="race" name="race" onclick="chooseRace(this.value)" value="Human">
               <label for="race4">Human</label><br>
-              <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Dragonborn">
+              <input type="radio" id="race" name="race" onclick="chooseRace(this.value)" value="Dragonborn">
               <label for="race5">Dragonborn</label><br>
-              <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Gnome">
+              <input type="radio" id="race" name="race" onclick="chooseRace(this.value)" value="Gnome">
               <label for="race6">Gnome</label><br>
-              <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Half-Elf">
+              <input type="radio" id="race" name="race" onclick="chooseRace(this.value)" value="Half-Elf">
               <label for="race7">Half-Elf</label><br>
-              <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Half-Orc">
+              <input type="radio" id="race" name="race" onclick="chooseRace(this.value)" value="Half-Orc">
               <label for="race8">Half-Orc</label><br>
-              <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Tiefling">
+              <input type="radio" id="race" name="race" onclick="chooseRace(this.value)" value="Tiefling">
               <label for="race9">Tiefling</label><br>
               <input type="text" id="raceResult">
             <p>What is your character's class?</p>
