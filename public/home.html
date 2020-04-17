@@ -16,7 +16,21 @@
           appId: "1:1031944349621:web:158ad89eda56b305599bfc",
           measurementId: "G-7LMFF4156H"
         };
-    var loggedIn=false; 
+  </script>
+</head>
+
+<body>
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+  <title>Character Cache</title>
+  <script src="/__/firebase/7.14.0/firebase-app.js"></script>
+  <script src="/__/firebase/7.14.0/firebase-auth.js"></script>
+  <script src="/__/firebase/7.14.0/firebase-firestore.js"></script>
+  <script>
+       var loggedIn=false; 
     $(document).ready(function () {
       $("#login").hide();
       $("#showHideLogin").click(function () {
@@ -30,22 +44,17 @@
         return false;
       });
     });
-    var docRef = db.collection("users").doc("charName");
-    docRef.get().then(function(doc) {
-    if (doc.exists) {
-        console.log("Document data:", doc.data());
-    } else {
-        console.log("No such document!");
-    }
-    }).catch(function(error) {
-    console.log("Error getting document:", error);
-    });
 
     if (loggedIn==true){
       if (document.getElementById("charName").value!=docRef.value){
         document.getElementById("charName").value=docRef.value; 
       }
     }
+    firebase.initializeApp({
+            apiKey: 'AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A',
+            authDomain: 'character-cache-cc142.firebaseapp.com',
+            projectId: 'character-cache-cc142'
+          });
 
     var db = firebase.firestore();
     var docRef = db.collection("cities").doc("SF");
@@ -62,18 +71,6 @@
     });
     
   </script>
-</head>
-
-<body>
-  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
-  <title>Character Cache</title>
-  <script src="/__/firebase/7.14.0/firebase-app.js"></script>
-  <script src="/__/firebase/7.14.0/firebase-auth.js"></script>
-  <script src="/__/firebase/7.14.0/firebase-firestore.js"></script>
   </div>
   <button onclick="document.getElementById('login').style.display='block'">Login</button>
   <div id="login" class="login">

@@ -62,31 +62,6 @@
     <a href="about.html">About</a>
     <a href="userProfile.html">User Profile</a>
   </div>
-  </div>
-  <button onclick="document.getElementById('login').style.display='block'">Login</button>
-  <div id="login" class="login">
-    <span onclick="document.getElementById('login').style.display='none'" class="close"
-      title="Close Modal">&times;</span>
-    <form class="modal-content animate" action="/action_page.php"></form>
-    <div class="loginContainer">
-      <label for="username"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uername" required>
-
-      <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" required>
-
-      <button type="submit">Login</button>
-      <button onclick="document.location = 'newUser.html'" id="newUser">New User</button>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
-    </div>
-
-    <div class="loginContainer" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('login').style.display='none'"
-        class="cancelbutton">Cancel</button>
-      <span class="password">Forgot <a href="#">password?</a></span>
-    </div>
     <div class="Quiz">
       <form id="quiz" name="quiz">
         <p>What type of character will you be creating?</p>
@@ -100,34 +75,100 @@
             document.getElementById("classResult").value = e.value;
           }
 
-          function submitDNDForm(e) {
+          $(document).ready(function() {
+            $("#saveCharacter").click(function(){
+              charName = getInputVal("characterName");
+              level = getInputVal("level");
+              race = getRace();
+              dndClass = getClass();
+              strength=getInputVal("strength");
+              dexterity=getInputVal("dexterity");
+              constitution=getInputVal("constitution");
+              intelligence=getInputVal("intelligence");
+              wisdom=getInputVal("wisdom");
+              charisma=getInputVal("charisma");
+              passiveperc=getInputVal("passiveperc");
+              hitpoints=getInputVal("HP");
+              armorclass=getInputVal("AC");
+              proficiencybonus=getInputVal("PB");
+              characterspeed=getInputVal("speed");
+              initiative=getInputVal("initiative");
+              alignment=getInputVal("alignment");
+              background=getInputVal("background");
+              traits=getInputVal("traits");
+              languages=getInputVal("langs");
+              attacks=getInputVal("attacks");
+              equipment=getInputVal("equipment");
+              description=getInputVal("description");
 
-            charName = getInputVal("finalCharName");
-            level = getInputVal("level");
-            race = getRace();
-            dndClass = getClass();
-
-            saveCharacter(charName, level, race, dndClass);
-          }
-
-          function saveCharacter(charName, level, race, dndClass) {
+              saveCharacter(charName, level, race, dndClass,strength, dexterity, constitution, intelligence, wisdom, charisma,
+                passiveperc,hitpoints,armorclass,proficiencybonus,characterspeed,initiative,alignment, background, traits, languages,
+                attacks, equipment, description);
+              return false; 
+            });
+          });
+          function saveCharacter(charName, level, race, dndClass,strength, dexterity, constitution, intelligence, wisdom, charisma,
+            passiveperc,hitpoints,armorclass,proficiencybonus,characterspeed,initiative, alignment, background, traits, languages, 
+            attacks, equipment, description) {
 
             db.collection("characters").add({
               characterName: charName,
               level: level,
               race: race,
-              dndClass: dndClass
+              dndClass: dndClass,
+              strength: strength, 
+              dexterity: dexterity,
+              constitution: constitution, 
+              intelligence: intelligence, 
+              wisdom: wisdom,
+              charisma: charisma,
+              passivePerception: passiveperc,
+              hitPoints: hitpoints,
+              armorClass: armorclass,
+              proficiencyBonus: proficiencybonus, 
+              characterSpeed: characterspeed, 
+              initiative: initiative,
+              alignment: alignment, 
+              background: background,
+              traits: traits, 
+              languages: languages,
+              attacks: attacks,
+              equipment: equipment, 
+              description: description
             })
-              .then(function (docRef) {
-                console.log("Document written with ID: ", docRef.id);
-              })
-              .catch(function (error) {
-                console.error("Error adding document :", error);
-              });
           }
 
-          function submitAuthorForm(e) {
+          $(document).ready(function(){
+            $("#saveAuthor").click(function(){
+              authorName=getInputVal("authorCharName");
+              age=getInputVal("age");
+              gender=getInputVal("gender");
+              sexOrientation=getInputVal("sexOrientation");
+              physical=getInputVal("physical");
+              profession=getInputVal("profession");
+              traits=getInputVal("traits");
+              motivation=getInputVal("motivation");
+              description=getInputVal("description");
 
+              saveAuthor(authorName, age, gender, sexOrientation, physical, profession, traits, 
+                motivation, description);
+              return false; 
+            });
+          });
+
+          function saveAuthor(authorName, age, gender, sexOrientation, physical, profession, traits,
+            motivation, description){
+            db.collection("authors").add({
+              authorName: authorName,
+              age: age,
+              gender: gender,
+              sexOrientation: sexOrientation,
+              physical: physical, 
+              profession: profession, 
+              traits: traits, 
+              motivation: motivation, 
+              description: description
+            })
           }
 
           function getRace() {
@@ -141,12 +182,6 @@
 
           function getInputVal(id) {
             return document.getElementById(id).value;
-          }
-
-          function inputCharName(e) {
-            var x = document.getElementById("characterName");
-            document.getElementById("finalCharName").innerHTML = x;
-            return false;
           }
 
           firebase.initializeApp({
@@ -163,10 +198,8 @@
         <form>
           <p>What is your character's name?</p>
           <input type="text" id="characterName" placeholder="Input Character Name">
-          <input type="text" id="finalCharName">
-          <button id="finalName" type="button" onclick="inputCharName(this)">Final Name</button>
           <p>What level is your character?</p>
-          <input type="number" id="level" name="abilityScore" min="0" max="20">
+          <input type="number" id="level" name="level" min="0" max="20">
           <p>What is your character's race?</p>
           <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Dwarf">
           <label for="race1">Dwarf</label><br>
@@ -215,17 +248,17 @@
           <input type="text" id="classResult">
           <p>Ability Scores: </p>
           <label for="strength">Strength</label>
-          <input type="number" id="abilityScore1" name="abilityScore1" value="strength" min="0" max="25"><br>
+          <input type="number" id="strength" name="strength"  min="0" max="25"><br>
           <label for="dexterity">Dexterity</label>
-          <input type="number" id="abilityScore2" name="abilityScore2" value="dexterity" min="0" max="25"><br>
+          <input type="number" id="dexterity" name="dexterity" min="0" max="25"><br>
           <label for="constitution">Constitution</label>
-          <input type="number" id="abilityScore3" name="abilityScore3" value="constitution" min="0" max="25"><br>
+          <input type="number" id="constitution" name="constitution" min="0" max="25"><br>
           <label for="intellegence">Intellegence</label>
-          <input type="number" id="abilityScore4" name="abilityScore4" value="intellegence" min="0" max="25"><br>
+          <input type="number" id="intelligence" name="intelligence"  min="0" max="25"><br>
           <label for="wisdom">Wisdom</label>
-          <input type="number" id="abilityScore5" name="abilityScore5" value="wisdom" min="0" max="25"><br>
+          <input type="number" id="wisdom" name="wisdom" min="0" max="25"><br>
           <label for="charisma">Charisma</label>
-          <input type="number" id="abilityScore6" name="abilityScore6" value="charisma" min="0" max="25"><br>
+          <input type="number" id="charisma" name="charisma" min="0" max="25"><br>
           <p>What are your character's ability saving throws?</p>
           <input type="checkbox" id="savingthrow1" name="savingthrow1" value="stength">
           <label for="savingthrow1">Strength</label>
@@ -307,7 +340,10 @@
           <label for="profilePic">Upload a character profile picture: </label>
           <input type="file" id="profilePic" name="profilePic" accept="image/png, image/jpeg">
           <div>
-            <button id="finshedCreating">Finished Creating</button>
+            <button id="saveCharacter">SaveCharacter</button>
+          </div>
+          <div>
+            <button>Create Another Character</button>
           </div>
         </form>
       </div>
@@ -326,30 +362,23 @@
           <p>What is your character's profession?</p>
           <input type="text" id="profession" placeholder="Character Profession">
           <p>What are some traits of your character?</p>
-          <textarea id="equipment" rows="3" cols="50" placeholder="Traits"></textarea>
+          <textarea id="traits" rows="3" cols="50" placeholder="Traits"></textarea>
           <p>What is your character's motivation?</p>
-          <textarea id="description" rows="3" cols="50" placeholder="Character Motivation"></textarea>
+          <textarea id="motivation" rows="3" cols="50" placeholder="Character Motivation"></textarea>
           <p>Any further description:</p>
           <textarea id="description" rows="7" cols="50" placeholder="Any extra character description"></textarea>
           <p>Picture of your character:</p>
           <label for="profilePic">Upload a character profile picture: </label>
           <input type="file" id="profilePic" name="profilePic" accept="image/png, image/jpeg">
           <div>
-            <button id="finshedCreating">Finished Creating</button>
+            <button id="saveAuthor">Finished Creating</button>
+          </div>
+          <div>
+            <button>Create Another Character</button>
           </div>
         </form>
       </div>
     </div> <br>
-    <script>
-      var el1 = document.getElementById("DNDquiz");
-      if (el1) {
-        el1.addEventListener("finishedCreating", submitDNDForm());
-      }
-      var el2 = document.getElementById("authorQuiz");
-      if (el2) {
-        el1.addEventListener("finishedCreating", submitAuthorForm());
-      }
-    </script>
 </body>
 
 </html>
