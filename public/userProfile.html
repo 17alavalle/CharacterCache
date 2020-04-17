@@ -1,30 +1,94 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Character Cache</title>
-    <link rel="stylesheet" href="stylesheet.css">
-  </head>
-  <body>
-    <div class="navBar">
-      <img class="logo" src="images/Logo no border.png" alt="CharacterCache Logo">
-      <a href="home.html">Home</a>
-      <a href="create.html">Create A Character</a>
-      <a href="about.html">About</a>
-      <a href="userProfile.html">User Profile</a>
+
+<head>
+  <title>Character Cache</title>
+  <link rel="stylesheet" href="stylesheet.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A",
+      authDomain: "character-cache-cc142.firebaseapp.com",
+      databaseURL: "https://character-cache-cc142.firebaseio.com",
+      projectId: "character-cache-cc142",
+      storageBucket: "character-cache-cc142.appspot.com",
+      messagingSenderId: "1031944349621",
+      appId: "1:1031944349621:web:158ad89eda56b305599bfc",
+      measurementId: "G-7LMFF4156H"
+    };
+    $(document).ready(function () {
+      $("#login").hide();
+      $("#showHideLogin").click(function () {
+        if ($("#login").is(":visible")) {
+          $("#login").hide();
+        }
+        else {
+          $("#login").show();
+        }
+        return false;
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+  <title>Character Cache</title>
+  <script src="/__/firebase/7.14.0/firebase-app.js"></script>
+  <script src="/__/firebase/7.14.0/firebase-auth.js"></script>
+  <script src="/__/firebase/7.14.0/firebase-firestore.js"></script>
+  </div>
+  <button onclick="document.getElementById('login').style.display='block'">Login</button>
+  <div id="login" class="login">
+    <span onclick="document.getElementById('login').style.display='none'" class="close"
+      title="Close Modal">&times;</span>
+    <form class="modal-content animate" action="/action_page.php"></form>
+    <div class="loginContainer">
+      <label for="username"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uername" required>
+
+      <label for="password"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" required>
+
+      <button type="submit">Login</button>
+      <button onclick="document.location = 'newUser.html'" id="newUser">New User</button>
+      <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
     </div>
 
-    <div class= containerUser>
-      <div class="col-md col-sm">
-        <div class="userProfile">
-          <div class="userProfPic">
-            <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
-          </div>
+    <div class="loginContainer" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('login').style.display='none'"
+        class="cancelbutton">Cancel</button>
+      <span class="password">Forgot <a href="#">password?</a></span>
+    </div>
+    </form>
+  </div>
+  <div class="navBar">
+    <img class="logo" src="images/Logo no border.png" alt="CharacterCache Logo">
+    <a href="home.html">Home</a>
+    <a href="create.html">Create A Character</a>
+    <a href="about.html">About</a>
+    <a href="userProfile.html">User Profile</a>
+  </div>
+
+  <div class=containerUser>
+    <div class="col-md col-sm">
+      <div class="userProfile">
+        <div class="userProfPic">
+          <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
         </div>
+      </div>
       <div class=userInfo>
         <h2>Username: </h2>
         <h2>Time Using Site: </h2>
         <h2>Characters Created: </h2>
       </div>
     </div>
-  </body>
+</body>
+
 </html>

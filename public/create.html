@@ -55,7 +55,6 @@
   <script src="/__/firebase/7.14.0/firebase-app.js"></script>
   <script src="/__/firebase/7.14.0/firebase-auth.js"></script>
   <script src="/__/firebase/7.14.0/firebase-firestore.js"></script>
-  <!--<script src="/__/firebase/init.js"></script>-->
   <div class="navBar">
     <img class="logo" src="images/Logo no border.png" alt="CharacterCache Logo">
     <a href="home.html">Home</a>
@@ -63,242 +62,294 @@
     <a href="about.html">About</a>
     <a href="userProfile.html">User Profile</a>
   </div>
-  <div class="Quiz">
-    <form id="quiz" name="quiz">
-      <p>What type of character will you be creating?</p>
-      <button id="showHideDNDquiz">D&D</button>
-      <button id="showHideAuthorQuiz">Author</button>
-      <script>
-        function chooseRace(e) {
-          document.getElementById("raceResult").value = e;
-        }
-        window.chooseRace = chooseRace;
-        function chooseClass(e) {
-          document.getElementById("classResult").value = e.value;
-        }
-        window.chooseClass = chooseClass;
-        function getRace() {
-          document.getElementById("raceResult").value;
-        }
+  </div>
+  <button onclick="document.getElementById('login').style.display='block'">Login</button>
+  <div id="login" class="login">
+    <span onclick="document.getElementById('login').style.display='none'" class="close"
+      title="Close Modal">&times;</span>
+    <form class="modal-content animate" action="/action_page.php"></form>
+    <div class="loginContainer">
+      <label for="username"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uername" required>
 
+      <label for="password"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" required>
 
-        /*
-        apiKey: "AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A",
-      authDomain: "character-cache-cc142.firebaseapp.com",
-      databaseURL: "https://character-cache-cc142.firebaseio.com",
-      projectId: "character-cache-cc142",
-        */
-        firebase.initializeApp({
-          apiKey: 'AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A',
-          authDomain: 'character-cache-cc142.firebaseapp.com',
-          projectId: 'character-cache-cc142'
-        });
+      <button type="submit">Login</button>
+      <button onclick="document.location = 'newUser.html'" id="newUser">New User</button>
+      <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
+    </div>
 
-        var db = firebase.firestore();
+    <div class="loginContainer" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('login').style.display='none'"
+        class="cancelbutton">Cancel</button>
+      <span class="password">Forgot <a href="#">password?</a></span>
+    </div>
+    <div class="Quiz">
+      <form id="quiz" name="quiz">
+        <p>What type of character will you be creating?</p>
+        <button id="showHideDNDquiz">D&D</button>
+        <button id="showHideAuthorQuiz">Author</button>
+        <script>
+          function chooseRace(e) {
+            document.getElementById("raceResult").value = e.value;
+          }
+          function chooseClass(e) {
+            document.getElementById("classResult").value = e.value;
+          }
 
-          db.collection("users").add({
-            first: "Ada",
-            last: "Lovelace",
-            born: 1815
-          })
-            .then(function (docRef) {
-              console.log("Document written with ID: ", docRef.id);
+          function submitDNDForm(e) {
+
+            charName = getInputVal("finalCharName");
+            level = getInputVal("level");
+            race = getRace();
+            dndClass = getClass();
+
+            saveCharacter(charName, level, race, dndClass);
+          }
+
+          function saveCharacter(charName, level, race, dndClass) {
+
+            db.collection("characters").add({
+              characterName: charName,
+              level: level,
+              race: race,
+              dndClass: dndClass
             })
-            .catch(function (error) {
-              console.error("Error adding document: ", error);
-            });
+              .then(function (docRef) {
+                console.log("Document written with ID: ", docRef.id);
+              })
+              .catch(function (error) {
+                console.error("Error adding document :", error);
+              });
+          }
 
-        /*var jsReference = firebaseConstructor();
-        var database = jsReference.getDatabase();
-        database.ref('characters').set('Abu Simbel')
-          .then(() => {
-            // log data set success to console
-            console.log('data set...');
-          })
-          .catch((e) => {
-            // catcg error from Firebase - error logged to console console.log('error returned', e);
-          });*/
-      </script>
-    </form>
-    <div id="DNDquiz">
-      <form>
-        <p>What is your character's name?</p>
-        <input type="text" id="characterName" placeholder="Input Character Name">
-        <p>What level is your character?</p>
-        <input type="number" id="level" name="abilityScore" min="0" max="20">
-        <p>What is your character's race?</p>
-        <input type="radio" id="race" name="race" onclick="chooseRace(this.value)" value="Dwarf">
-        <label for="race1">Dwarf</label><br>
-        <input type="radio" id="race" name="race" onclick="chooseRace(this.value)" value="Elf">
-        <label for="race2">Elf</label><br>
-        <input type="radio" id="race" name="race" onclick="chooseRace(this.value)" value="Halfling">
-        <label for="race3">Halfling</label><br>
-        <input type="radio" id="race" name="race" onclick="chooseRace(this.value)" value="Human">
-        <label for="race4">Human</label><br>
-        <input type="radio" id="race" name="race" onclick="chooseRace(this.value)" value="Dragonborn">
-        <label for="race5">Dragonborn</label><br>
-        <input type="radio" id="race" name="race" onclick="chooseRace(this.value)" value="Gnome">
-        <label for="race6">Gnome</label><br>
-        <input type="radio" id="race" name="race" onclick="chooseRace(this.value)" value="Half-Elf">
-        <label for="race7">Half-Elf</label><br>
-        <input type="radio" id="race" name="race" onclick="chooseRace(this.value)" value="Half-Orc">
-        <label for="race8">Half-Orc</label><br>
-        <input type="radio" id="race" name="race" onclick="chooseRace(this.value)" value="Tiefling">
-        <label for="race9">Tiefling</label><br>
-        <input type="text" id="raceResult">
-        <p>What is your character's class?</p>
-        <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Barbarian">
-        <label for="dndclass1">Barbarian</label><br>
-        <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Bard">
-        <label for="dndclass2">Bard</label><br>
-        <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Cleric">
-        <label for="dndclass3">Cleric</label><br>
-        <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Druid">
-        <label for="dndclass4">Druid</label><br>
-        <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Fighter">
-        <label for="dndclass5">Fighter</label><br>
-        <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Monk">
-        <label for="dndclass6">Monk</label><br>
-        <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Paladin">
-        <label for="dndclass7">Paladin</label><br>
-        <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Ranger">
-        <label for="dndclass8">Ranger</label><br>
-        <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Rogue">
-        <label for="dndclass9">Rogue</label><br>
-        <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Sorcerer">
-        <label for="dndclass10">Sorcerer</label><br>
-        <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Warlock">
-        <label for="dndclass11">Warlock</label><br>
-        <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Wizard">
-        <label for="dndclass12">Wizard</label><br>
-        <input type="text" id="classResult">
-        <p>Ability Scores: </p>
-        <label for="strength">Strength</label>
-        <input type="number" id="abilityScore1" name="abilityScore1" value="strength" min="0" max="25"><br>
-        <label for="dexterity">Dexterity</label>
-        <input type="number" id="abilityScore2" name="abilityScore2" value="dexterity" min="0" max="25"><br>
-        <label for="constitution">Constitution</label>
-        <input type="number" id="abilityScore3" name="abilityScore3" value="constitution" min="0" max="25"><br>
-        <label for="intellegence">Intellegence</label>
-        <input type="number" id="abilityScore4" name="abilityScore4" value="intellegence" min="0" max="25"><br>
-        <label for="wisdom">Wisdom</label>
-        <input type="number" id="abilityScore5" name="abilityScore5" value="wisdom" min="0" max="25"><br>
-        <label for="charisma">Charisma</label>
-        <input type="number" id="abilityScore6" name="abilityScore6" value="charisma" min="0" max="25"><br>
-        <p>What are your character's ability saving throws?</p>
-        <input type="checkbox" id="savingthrow1" name="savingthrow1" value="stength">
-        <label for="savingthrow1">Strength</label>
-        <input type="checkbox" id="savingthrow2" name="savingthrow2" value="dexterity">
-        <label for="savingthrow2">Dexterity</label>
-        <input type="checkbox" id="savingthrow3" name="savingthrow3" value="constitution">
-        <label for="savingthrow3">Constitution</label>
-        <input type="checkbox" id="savingthrow4" name="savingthrow4" value="intellegence">
-        <label for="savingthrow4">Intellegence</label>
-        <input type="checkbox" id="savingthrow5" name="savingthrow5" value="wisdom">
-        <label for="savingthrow5">Wisdom</label>
-        <input type="checkbox" id="savingthrow6" name="savingthrow6" value="charisma">
-        <label for="savingthrow6">Charisma</label>
-        <p>What is your character's passive perception?</p>
-        <input type="text" id="passiveperc" placeholder="Passive Perception">
-        <p>How many hit points does your character have?</p>
-        <input type="text" id="HP" placeholder="Number of Hit Points">
-        <p>What is your character's armor class?</p>
-        <input type="text" id="AC" placeholder="Armor Class">
-        <p>What is your character's proficiency bonus?</p>
-        <input type="text" id="PB" placeholder="Proficiency Bonus">
-        <p>What is your character's speed?</p>
-        <input type="text" id="speed" placeholder="Speed">
-        <p>What is your character's initiative bonus?</p>
-        <input type="text" id="initiative" placeholder="Initiative">
-        <p>What are your character's skills?</p>
-        <input type="checkbox" id="skill1" name="skill1" value="Acrobatics">
-        <label for="skill1">Acrobatics</label>
-        <input type="checkbox" id="skill2" name="skill2" value="Animal Handling">
-        <label for="skill2">Animal Handling</label>
-        <input type="checkbox" id="skill3" name="skill3" value="Arcana">
-        <label for="skill3">Arcana</label>
-        <input type="checkbox" id="skill4" name="skill4" value="Athletics">
-        <label for="skill4">Athletics</label>
-        <input type="checkbox" id="skill5" name="skill5" value="Deception">
-        <label for="skill5">Deception</label>
-        <input type="checkbox" id="skill6" name="skill6" value="History">
-        <label for="skill6">History</label>
-        <input type="checkbox" id="skill7" name="skill7" value="Insight">
-        <label for="skill7">Insight</label>
-        <input type="checkbox" id="skill8" name="skill8" value="Intimidation">
-        <label for="skill8">Intimidation</label>
-        <input type="checkbox" id="skill9" name="skill9" value="Investigation">
-        <label for="skill9">Investigation</label> <br>
-        <input type="checkbox" id="skill10" name="skill10" value="Medicine">
-        <label for="skill10">Medicine</label>
-        <input type="checkbox" id="skill11" name="skill11" value="Nature">
-        <label for="skill11">Nature</label>
-        <input type="checkbox" id="skill12" name="skill12" value="Perception">
-        <label for="skill12">Perception</label>
-        <input type="checkbox" id="skill13" name="skill13" value="Performance">
-        <label for="skill13">Performance</label>
-        <input type="checkbox" id="skill14" name="skill14" value="Persuasion">
-        <label for="skill14">Persuasion</label>
-        <input type="checkbox" id="skill15" name="skill15" value="Religion">
-        <label for="skill15">Religion</label>
-        <input type="checkbox" id="skill16" name="skill16" value="Sleight of Hand">
-        <label for="skill16">Sleight of Hand</label>
-        <input type="checkbox" id="skill17" name="skill17" value="Stealth">
-        <label for="skill17">Stealth</label>
-        <input type="checkbox" id="skill18" name="skill18" value="Survival">
-        <label for="skill18">Survival</label>
-        <p>What is your character's alignment?</p>
-        <input type="text" id="alignment" placeholder="Alignment">
-        <p>What is your character's background?</p>
-        <input type="text" id="background" placeholder="Background">
-        <p>What are your character's proficiencies, traits, and abilities?</p>
-        <textarea id="traits" rows="5" cols="50" placeholder="Proficiencies, Traits, Abilities"></textarea>
-        <p>What languages does your character speak?</p>
-        <textarea id="langs" rows="3" cols="50" placeholder="Languages"></textarea>
-        <p>What weapons/spells does your character have?</p>
-        <textarea id="attacks" rows="7" cols="50"
-          placeholder="Weapons and Spells (format as you would like)"></textarea>
-        <p>What other equipment does your character have?</p>
-        <textarea id="equipment" rows="7" cols="50" placeholder="Equipment"></textarea>
-        <p>Any further description:</p>
-        <textarea id="description" rows="7" cols="50" placeholder="Any extra character description"></textarea>
-        <p>Picture of your character:</p>
-        <label for="profilePic">Upload a character profile picture: </label>
-        <input type="file" id="profilePic" name="profilePic" accept="image/png, image/jpeg">
-        <div>
-          <button onclick="document.location = 'home.html'" id="finshedCreating">Finished Creating</button>
-        </div>
+          function submitAuthorForm(e) {
+
+          }
+
+          function getRace() {
+            return document.getElementById("raceResult").value.toString();
+          }
+
+          function getClass() {
+            return document.getElementById("classResult").value.toString();
+          }
+
+
+          function getInputVal(id) {
+            return document.getElementById(id).value;
+          }
+
+          function inputCharName(e) {
+            var x = document.getElementById("characterName");
+            document.getElementById("finalCharName").innerHTML = x;
+            return false;
+          }
+
+          firebase.initializeApp({
+            apiKey: 'AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A',
+            authDomain: 'character-cache-cc142.firebaseapp.com',
+            projectId: 'character-cache-cc142'
+          });
+
+          var db = firebase.firestore();
+
+        </script>
       </form>
-    </div>
-    <div id="authorQuiz">
-      <form>
-        <p>What is your character's name?</p>
-        <input type="text" id="authorCharName" placeholder="Character Name">
-        <p>What is your character's age?</p>
-        <input type="number" id="age" name="age" min="0">
-        <p>What is your character's gender?</p>
-        <input type="text" id="gender" placeholder="Character Gender">
-        <p>What is your character's sexual orientation?</p>
-        <input type="text" id="sexOrientation" placeholder="Sexual orientation?">
-        <p>Physical Description</p>
-        <textarea id="physical" rows="5" cols="50" placeholder="Physical Description"></textarea>
-        <p>What is your character's profession?</p>
-        <input type="text" id="profession" placeholder="Character Profession">
-        <p>What are some traits of your character?</p>
-        <textarea id="equipment" rows="3" cols="50" placeholder="Traits"></textarea>
-        <p>What is your character's motivation?</p>
-        <textarea id="description" rows="3" cols="50" placeholder="Character Motivation"></textarea>
-        <p>Any further description:</p>
-        <textarea id="description" rows="7" cols="50" placeholder="Any extra character description"></textarea>
-        <p>Picture of your character:</p>
-        <label for="profilePic">Upload a character profile picture: </label>
-        <input type="file" id="profilePic" name="profilePic" accept="image/png, image/jpeg">
-        <div>
-          <button id="finshedCreating">Finished Creating</button>
-        </div>
-      </form>
-    </div>
-  </div> <br>
+      <div id="DNDquiz">
+        <form>
+          <p>What is your character's name?</p>
+          <input type="text" id="characterName" placeholder="Input Character Name">
+          <input type="text" id="finalCharName">
+          <button id="finalName" type="button" onclick="inputCharName(this)">Final Name</button>
+          <p>What level is your character?</p>
+          <input type="number" id="level" name="abilityScore" min="0" max="20">
+          <p>What is your character's race?</p>
+          <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Dwarf">
+          <label for="race1">Dwarf</label><br>
+          <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Elf">
+          <label for="race2">Elf</label><br>
+          <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Halfling">
+          <label for="race3">Halfling</label><br>
+          <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Human">
+          <label for="race4">Human</label><br>
+          <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Dragonborn">
+          <label for="race5">Dragonborn</label><br>
+          <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Gnome">
+          <label for="race6">Gnome</label><br>
+          <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Half-Elf">
+          <label for="race7">Half-Elf</label><br>
+          <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Half-Orc">
+          <label for="race8">Half-Orc</label><br>
+          <input type="radio" id="race" name="race" onclick="chooseRace(this)" value="Tiefling">
+          <label for="race9">Tiefling</label><br>
+          <input type="text" id="raceResult">
+          <p>What is your character's class?</p>
+          <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Barbarian">
+          <label for="dndclass1">Barbarian</label><br>
+          <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Bard">
+          <label for="dndclass2">Bard</label><br>
+          <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Cleric">
+          <label for="dndclass3">Cleric</label><br>
+          <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Druid">
+          <label for="dndclass4">Druid</label><br>
+          <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Fighter">
+          <label for="dndclass5">Fighter</label><br>
+          <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Monk">
+          <label for="dndclass6">Monk</label><br>
+          <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Paladin">
+          <label for="dndclass7">Paladin</label><br>
+          <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Ranger">
+          <label for="dndclass8">Ranger</label><br>
+          <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Rogue">
+          <label for="dndclass9">Rogue</label><br>
+          <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Sorcerer">
+          <label for="dndclass10">Sorcerer</label><br>
+          <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Warlock">
+          <label for="dndclass11">Warlock</label><br>
+          <input type="radio" id="dndclass" name="dndclass" onclick="chooseClass(this)" value="Wizard">
+          <label for="dndclass12">Wizard</label><br>
+          <input type="text" id="classResult">
+          <p>Ability Scores: </p>
+          <label for="strength">Strength</label>
+          <input type="number" id="abilityScore1" name="abilityScore1" value="strength" min="0" max="25"><br>
+          <label for="dexterity">Dexterity</label>
+          <input type="number" id="abilityScore2" name="abilityScore2" value="dexterity" min="0" max="25"><br>
+          <label for="constitution">Constitution</label>
+          <input type="number" id="abilityScore3" name="abilityScore3" value="constitution" min="0" max="25"><br>
+          <label for="intellegence">Intellegence</label>
+          <input type="number" id="abilityScore4" name="abilityScore4" value="intellegence" min="0" max="25"><br>
+          <label for="wisdom">Wisdom</label>
+          <input type="number" id="abilityScore5" name="abilityScore5" value="wisdom" min="0" max="25"><br>
+          <label for="charisma">Charisma</label>
+          <input type="number" id="abilityScore6" name="abilityScore6" value="charisma" min="0" max="25"><br>
+          <p>What are your character's ability saving throws?</p>
+          <input type="checkbox" id="savingthrow1" name="savingthrow1" value="stength">
+          <label for="savingthrow1">Strength</label>
+          <input type="checkbox" id="savingthrow2" name="savingthrow2" value="dexterity">
+          <label for="savingthrow2">Dexterity</label>
+          <input type="checkbox" id="savingthrow3" name="savingthrow3" value="constitution">
+          <label for="savingthrow3">Constitution</label>
+          <input type="checkbox" id="savingthrow4" name="savingthrow4" value="intellegence">
+          <label for="savingthrow4">Intellegence</label>
+          <input type="checkbox" id="savingthrow5" name="savingthrow5" value="wisdom">
+          <label for="savingthrow5">Wisdom</label>
+          <input type="checkbox" id="savingthrow6" name="savingthrow6" value="charisma">
+          <label for="savingthrow6">Charisma</label>
+          <p>What is your character's passive perception?</p>
+          <input type="text" id="passiveperc" placeholder="Passive Perception">
+          <p>How many hit points does your character have?</p>
+          <input type="text" id="HP" placeholder="Number of Hit Points">
+          <p>What is your character's armor class?</p>
+          <input type="text" id="AC" placeholder="Armor Class">
+          <p>What is your character's proficiency bonus?</p>
+          <input type="text" id="PB" placeholder="Proficiency Bonus">
+          <p>What is your character's speed?</p>
+          <input type="text" id="speed" placeholder="Speed">
+          <p>What is your character's initiative bonus?</p>
+          <input type="text" id="initiative" placeholder="Initiative">
+          <p>What are your character's skills?</p>
+          <input type="checkbox" id="skill1" name="skill1" value="Acrobatics">
+          <label for="skill1">Acrobatics</label>
+          <input type="checkbox" id="skill2" name="skill2" value="Animal Handling">
+          <label for="skill2">Animal Handling</label>
+          <input type="checkbox" id="skill3" name="skill3" value="Arcana">
+          <label for="skill3">Arcana</label>
+          <input type="checkbox" id="skill4" name="skill4" value="Athletics">
+          <label for="skill4">Athletics</label>
+          <input type="checkbox" id="skill5" name="skill5" value="Deception">
+          <label for="skill5">Deception</label>
+          <input type="checkbox" id="skill6" name="skill6" value="History">
+          <label for="skill6">History</label>
+          <input type="checkbox" id="skill7" name="skill7" value="Insight">
+          <label for="skill7">Insight</label>
+          <input type="checkbox" id="skill8" name="skill8" value="Intimidation">
+          <label for="skill8">Intimidation</label>
+          <input type="checkbox" id="skill9" name="skill9" value="Investigation">
+          <label for="skill9">Investigation</label> <br>
+          <input type="checkbox" id="skill10" name="skill10" value="Medicine">
+          <label for="skill10">Medicine</label>
+          <input type="checkbox" id="skill11" name="skill11" value="Nature">
+          <label for="skill11">Nature</label>
+          <input type="checkbox" id="skill12" name="skill12" value="Perception">
+          <label for="skill12">Perception</label>
+          <input type="checkbox" id="skill13" name="skill13" value="Performance">
+          <label for="skill13">Performance</label>
+          <input type="checkbox" id="skill14" name="skill14" value="Persuasion">
+          <label for="skill14">Persuasion</label>
+          <input type="checkbox" id="skill15" name="skill15" value="Religion">
+          <label for="skill15">Religion</label>
+          <input type="checkbox" id="skill16" name="skill16" value="Sleight of Hand">
+          <label for="skill16">Sleight of Hand</label>
+          <input type="checkbox" id="skill17" name="skill17" value="Stealth">
+          <label for="skill17">Stealth</label>
+          <input type="checkbox" id="skill18" name="skill18" value="Survival">
+          <label for="skill18">Survival</label>
+          <p>What is your character's alignment?</p>
+          <input type="text" id="alignment" placeholder="Alignment">
+          <p>What is your character's background?</p>
+          <input type="text" id="background" placeholder="Background">
+          <p>What are your character's proficiencies, traits, and abilities?</p>
+          <textarea id="traits" rows="5" cols="50" placeholder="Proficiencies, Traits, Abilities"></textarea>
+          <p>What languages does your character speak?</p>
+          <textarea id="langs" rows="3" cols="50" placeholder="Languages"></textarea>
+          <p>What weapons/spells does your character have?</p>
+          <textarea id="attacks" rows="7" cols="50"
+            placeholder="Weapons and Spells (format as you would like)"></textarea>
+          <p>What other equipment does your character have?</p>
+          <textarea id="equipment" rows="7" cols="50" placeholder="Equipment"></textarea>
+          <p>Any further description:</p>
+          <textarea id="description" rows="7" cols="50" placeholder="Any extra character description"></textarea>
+          <p>Picture of your character:</p>
+          <label for="profilePic">Upload a character profile picture: </label>
+          <input type="file" id="profilePic" name="profilePic" accept="image/png, image/jpeg">
+          <div>
+            <button id="finshedCreating">Finished Creating</button>
+          </div>
+        </form>
+      </div>
+      <div id="authorQuiz">
+        <form>
+          <p>What is your character's name?</p>
+          <input type="text" id="authorCharName" placeholder="Character Name">
+          <p>What is your character's age?</p>
+          <input type="number" id="age" name="age" min="0">
+          <p>What is your character's gender?</p>
+          <input type="text" id="gender" placeholder="Character Gender">
+          <p>What is your character's sexual orientation?</p>
+          <input type="text" id="sexOrientation" placeholder="Sexual orientation?">
+          <p>Physical Description</p>
+          <textarea id="physical" rows="5" cols="50" placeholder="Physical Description"></textarea>
+          <p>What is your character's profession?</p>
+          <input type="text" id="profession" placeholder="Character Profession">
+          <p>What are some traits of your character?</p>
+          <textarea id="equipment" rows="3" cols="50" placeholder="Traits"></textarea>
+          <p>What is your character's motivation?</p>
+          <textarea id="description" rows="3" cols="50" placeholder="Character Motivation"></textarea>
+          <p>Any further description:</p>
+          <textarea id="description" rows="7" cols="50" placeholder="Any extra character description"></textarea>
+          <p>Picture of your character:</p>
+          <label for="profilePic">Upload a character profile picture: </label>
+          <input type="file" id="profilePic" name="profilePic" accept="image/png, image/jpeg">
+          <div>
+            <button id="finshedCreating">Finished Creating</button>
+          </div>
+        </form>
+      </div>
+    </div> <br>
+    <script>
+      var el1 = document.getElementById("DNDquiz");
+      if (el1) {
+        el1.addEventListener("finishedCreating", submitDNDForm());
+      }
+      var el2 = document.getElementById("authorQuiz");
+      if (el2) {
+        el1.addEventListener("finishedCreating", submitAuthorForm());
+      }
+    </script>
 </body>
 
 </html>
