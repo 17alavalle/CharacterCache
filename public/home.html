@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="stylesheet.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script>
+    //Configure Firebase App
     var firebaseConfig = {
       apiKey: "AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A",
       authDomain: "character-cache-cc142.firebaseapp.com",
@@ -20,17 +21,19 @@
 </head>
 
 <body>
+  <title>Character Cache</title>
   <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
-  <title>Character Cache</title>
   <script src="/__/firebase/7.14.0/firebase-app.js"></script>
   <script src="/__/firebase/7.14.0/firebase-auth.js"></script>
   <script src="/__/firebase/7.14.0/firebase-firestore.js"></script>
   <script>
     var loggedIn = false;
+
+    //Toggle Login Modal
     $(document).ready(function () {
       $("#login").hide();
       $("#showHideLogin").click(function () {
@@ -44,27 +47,29 @@
       });
     });
 
+    //Toggle Login/Logount
     $(document).ready(function () {
-      $("#logoutButton").hide(); 
-      window.onload=checkCookie();
-      if(loggedIn==true){
-        $('#loginButton').hide(); 
-        $('#logoutButton').show(); 
+      $("#logoutButton").hide();
+      window.onload = checkCookie();
+      if (loggedIn == true) {
+        $('#loginButton').hide();
+        $('#logoutButton').show();
       }
-      else{
+      else {
         $('#logoutButton').hide();
         $('#loginButton').show();
       }
       $('#loginButton').unbind('click').click(function () {
-      username = $("#username").val();
+        username = $("#username").val();
         password = $("#password").val();
         checkForUser(username, password);
       });
     });
     $('#logoutButton').unbind('click').click(function () {
       document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      });
+    });
 
+    //Verify User is in database, if they are set cookie
     function checkForUser(username, password) {
       loggedIn = false;
       usersRef.where("username", "==", this.username)
@@ -77,7 +82,7 @@
               loggedIn = true;
             }
             else {
-              console.log("failed pw: ",doc.data().password);
+              console.log("failed pw: ", doc.data().password);
             }
           });
           if (loggedIn) {
@@ -93,10 +98,26 @@
 
     }
 
+    //function to find and log all characters associated with a certain username
+    function getCharacters(username) {
+      charactersRef.get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          username=username.toString(); 
+          checkusername=doc.data().username.toString()
+          console.log(doc.data().username.toString());
+          if(checkusername.value==username.value){
+            console.log(doc.data().characterName);
+          }
+        });
+      });
+    }
+
+    //function retrieves user input 
     function getInputVal(id) {
       return document.getElementById(id).value;
     }
 
+    //Initialize app in firebase and create references to each collection
     firebase.initializeApp({
       apiKey: 'AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A',
       authDomain: 'character-cache-cc142.firebaseapp.com',
@@ -105,40 +126,47 @@
 
     var db = firebase.firestore();
     var usersRef = db.collection("users");
+    var charactersRef = db.collection("characters");
+    var authorsRef = db.collection("authors");
 
-    function setCookie(username,password){
-      var d=new Date(); 
-      d.setTime(d.getTime() + (30*24*60*60*1000));
-      var expires="expires: "+d.toGMTString(); 
-      document.cookie="username: " + username + ";" +expires +";path=/"; 
+    //Cookie functions for user 
+    function setCookie(username, password) {
+      var d = new Date();
+      d.setTime(d.getTime() + (30 * 24 * 60 * 60 * 1000));
+      var expires = "expires: " + d.toGMTString();
+      document.cookie = "username: " + username + ";" + expires + ";path=/";
     }
 
-    function getCookie(username){
-      var decodedCookie=decodeURIComponent(document.cookie);
+    function getCookie(username) {
+      var decodedCookie = decodeURIComponent(document.cookie);
       var dc = decodedCookie.split(";");
-      for(var i=0; i<dc.length; i++){
-        var c=dc[i];
-        while(c.charAt(0)==' '){
-          c=substring(1);
+      for (var i = 0; i < dc.length; i++) {
+        var c = dc[i];
+        while (c.charAt(0) == ' ') {
+          c = substring(1);
         }
-        if(c.indexOf(username) ==0){
+        if (c.indexOf(username) == 0) {
           return c.substring(username.length, c.length);
         }
         return "";
       }
     }
 
-    function checkCookie(){
+    function checkCookie() {
       console.log("Checking cookie");
-      var user=getCookie("username");
-      if(user != ""){
+      var user = getCookie("username");
+      if (user != "") {
         alert("Welcome again " + user);
-        loggedIn=true; 
+        loggedIn = true;
+        getCharacters(user);
+        console.log("check cookie username =" + user);
       }
-      console.log("loggedIn: "+ loggedIn);
+      console.log("loggedIn: " + loggedIn);
     }
 
   </script>
+
+  <!-- Display Login Modal -->
   <button onclick="document.getElementById('login').style.display='block'">Login</button>
   <div id="login" class="login">
     <span onclick="document.getElementById('login').style.display='none'" class="close"
@@ -154,7 +182,7 @@
       <button type="submit" id="loginButton">Login</button>
       <button onclick="document.location = 'newUser.html'" id="newUser">New User</button>
       <button id=logoutButton">Logout</button>
-      
+
     </div>
 
     <div class="loginContainer" style="background-color:#f1f1f1">
@@ -163,6 +191,7 @@
     </div>
     </form>
   </div>
+
   <div class="navBar">
     <img class="logo" src="images/Logo no border.png" alt="CharacterCache Logo">
     <a href="home.html">Home</a>

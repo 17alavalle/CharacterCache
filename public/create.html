@@ -4,6 +4,7 @@
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script>
+    //Configure Firebase App
     var firebaseConfig = {
       apiKey: "AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A",
       authDomain: "character-cache-cc142.firebaseapp.com",
@@ -15,6 +16,7 @@
       measurementId: "G-7LMFF4156H"
     };
 
+    //Toggle which character quiz to fill out
     $(document).ready(function () {
       $("#DNDquiz").hide();
       $("#showHideDNDquiz").click(function () {
@@ -45,16 +47,17 @@
 </head>
 
 <body>
+  <title>Character Cache</title>
   <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
   <link rel="stylesheet" href="stylesheet.css">
-  <title>Character Cache</title>
   <script src="/__/firebase/7.14.0/firebase-app.js"></script>
   <script src="/__/firebase/7.14.0/firebase-auth.js"></script>
   <script src="/__/firebase/7.14.0/firebase-firestore.js"></script>
+
   <div class="navBar">
     <img class="logo" src="images/Logo no border.png" alt="CharacterCache Logo">
     <a href="home.html">Home</a>
@@ -62,12 +65,14 @@
     <a href="about.html">About</a>
     <a href="userProfile.html">User Profile</a>
   </div>
+
   <div class="Quiz">
     <form id="quiz" name="quiz">
       <p>What type of character will you be creating?</p>
       <button id="showHideDNDquiz">D&D</button>
       <button id="showHideAuthorQuiz">Author</button>
       <script>
+        //Cookie functions
         window.onload = checkCookie();
         function getCookie(username) {
           var decodedCookie = decodeURIComponent(document.cookie);
@@ -92,6 +97,12 @@
           }
           console.log("loggedIn: " + loggedIn);
         }
+
+        function getUsername(){
+          var usernameWColon=getCookie("username");
+          var username=usernameWColon.substring(2);
+          return username; 
+        }
         function chooseRace(e) {
           document.getElementById("raceResult").value = e.value;
         }
@@ -99,8 +110,10 @@
           document.getElementById("classResult").value = e.value;
         }
 
+        //Functions to save new Character and Author from quiz to database
         $(document).ready(function () {
           $("#saveCharacter").click(function () {
+            username=getUsername(); 
             charName = getInputVal("characterName");
             level = getInputVal("level");
             race = getRace();
@@ -125,17 +138,18 @@
             equipment = getInputVal("equipment");
             description = getInputVal("description");
 
-            saveCharacter(charName, level, race, dndClass, strength, dexterity, constitution, intelligence, wisdom, charisma,
+            saveCharacter(username, charName, level, race, dndClass, strength, dexterity, constitution, intelligence, wisdom, charisma,
               passiveperc, hitpoints, armorclass, proficiencybonus, characterspeed, initiative, alignment, background, traits, languages,
               attacks, equipment, description);
             return false;
           });
         });
-        function saveCharacter(charName, level, race, dndClass, strength, dexterity, constitution, intelligence, wisdom, charisma,
+        function saveCharacter(username,charName, level, race, dndClass, strength, dexterity, constitution, intelligence, wisdom, charisma,
           passiveperc, hitpoints, armorclass, proficiencybonus, characterspeed, initiative, alignment, background, traits, languages,
           attacks, equipment, description) {
 
           db.collection("characters").add({
+            username: username, 
             characterName: charName,
             level: level,
             race: race,
