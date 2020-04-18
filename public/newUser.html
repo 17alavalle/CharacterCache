@@ -1,67 +1,75 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Character Cache</title>
-        <link rel="stylesheet" href="stylesheet.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script>
-        var modal = document.getElementById('login');
+
+<head>
+    <title>Character Cache</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+    <script src="/__/firebase/7.14.0/firebase-app.js"></script>
+    <script src="/__/firebase/7.14.0/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.0/firebase-firestore.js"></script>
+    <script>
+        firebase.initializeApp({
+            apiKey: 'AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A',
+            authDomain: 'character-cache-cc142.firebaseapp.com',
+            projectId: 'character-cache-cc142'
+        });
+
+        var db = firebase.firestore();
+
         $(document).ready(function () {
-            $("login").hide();
-            $("#showModal").click(function(){
-            $("#login").show(); 
-            return false; 
+            $("#finishProfile").click(function () {
+                username=getInputVal("username");
+                password=getInputVal("password");
+
+                saveProfile(username, password);
+                return false;
             });
         });
-        window.onclick = function(event) {
-            if (event.target == modal) {
-            modal.style.display = "none";
-            }
+
+        function saveProfile(username, password) {
+            db.collection("users").add({
+                username: username, 
+                password: password
+            })
         }
-        </script>
-    </head>
-    <body>
-        <button onclick="document.getElementById('login').style.display='block'">Login</button>
-        <div id="login" class="login">
-            <span onclick="document.getElementById('login').style.display='none'" 
-        class="close" title="Close Modal">&times;</span>
-        <form class="modal-content animate" action="/action_page.php"></form>
-            <div class="loginContainer">
-                <label for="username"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="uername" required>
-
-                <label for="password"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="password" required>
-
-                <button type="submit">Login</button>
-                <button onclick="document.location = 'newUser.html'" id="newUser">New User</button>
-                <label>
-                <input type="checkbox" checked="checked" name="remember"> Remember me
-                </label>
-            </div>
-
-            <div class="loginContainer" style="background-color:#f1f1f1">
-                <button type="button" onclick="document.getElementById('login').style.display='none'" class="cancelbutton">Cancel</button>
-                <span class="password">Forgot <a href="#">password?</a></span>
-            </div>
-            </form>
-        </div>
-        <div class="navBar">
+        function getInputVal(id) {
+            return document.getElementById(id).value;
+        }
+    </script>
+    <div class="navBar">
         <img class="logo" src="images/Logo no border.png" alt="CharacterCache Logo">
         <a href="home.html">Home</a>
         <a href="create.html">Create A Character</a>
         <a href="about.html">About</a>
         <a href="userProfile.html">User Profile</a>
-        </div>
-        <div class=newUserProfile>
-            <form>
-                <p>What is your username?</p>
-                <input type="text" id="username" placeholder="Input Username">
-            </form>
-            <link rel="stylesheet" href="stylesheet.css">
+    </div>
+    <div class=newUserProfile>
+        <form>
+            <p>What is your username?</p>
+            <input type="text" id="username" placeholder="Input Username">
+            <p> What is your password?</p>
+            <input type="text" id="password" placeholder="Input Password">
+        </form>
+        <link rel="stylesheet" href="stylesheet.css">
+        <div>
             <label for="profilePic">Upload your profile picture: </label>
             <input type="file" id="userProfilePic" name="userProfilePic" accept="image/png, image/jpeg">
-
         </div>
-    </body>
+        <div>
+            <button id="finishProfile">Finish Profile</button>
+        </div>
+        <div>
+            <button id="viewProfile">View Profile</button>
+        </div>
+    </div>
+</body>
+
 </html>

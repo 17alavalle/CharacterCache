@@ -29,6 +29,31 @@
   <script src="/__/firebase/7.14.0/firebase-app.js"></script>
   <script src="/__/firebase/7.14.0/firebase-auth.js"></script>
   <script src="/__/firebase/7.14.0/firebase-firestore.js"></script>
+  <script>
+    window.onload=checkCookie(); 
+    function getCookie(username){
+      var decodedCookie=decodeURIComponent(document.cookie);
+      var dc = decodedCookie.split(";");
+      for(var i=0; i<dc.length; i++){
+        var c=dc[i];
+        while(c.charAt(0)==' '){
+          c=substring(1);
+        }
+        if(c.indexOf(username) ==0){
+          return c.substring(username.length, c.length);
+        }
+        return "";
+      }
+    }
+    function checkCookie(){
+      console.log("Checking cookie");
+      var user=getCookie("username");
+      if(user != ""){
+        loggedIn=true; 
+      }
+      console.log("loggedIn: "+ loggedIn);
+    }
+  </script>
   <div class="navBar">
     <img class="logo" src="images/Logo no border.png" alt="CharacterCache Logo">
     <a href="home.html">Home</a>

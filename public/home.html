@@ -6,16 +6,16 @@
   <link rel="stylesheet" href="stylesheet.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script>
-       var firebaseConfig = {
-         apiKey: "AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A",
-          authDomain: "character-cache-cc142.firebaseapp.com",
-          databaseURL: "https://character-cache-cc142.firebaseio.com",
-          projectId: "character-cache-cc142",
-          storageBucket: "character-cache-cc142.appspot.com",
-          messagingSenderId: "1031944349621",
-          appId: "1:1031944349621:web:158ad89eda56b305599bfc",
-          measurementId: "G-7LMFF4156H"
-        };
+    var firebaseConfig = {
+      apiKey: "AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A",
+      authDomain: "character-cache-cc142.firebaseapp.com",
+      databaseURL: "https://character-cache-cc142.firebaseio.com",
+      projectId: "character-cache-cc142",
+      storageBucket: "character-cache-cc142.appspot.com",
+      messagingSenderId: "1031944349621",
+      appId: "1:1031944349621:web:158ad89eda56b305599bfc",
+      measurementId: "G-7LMFF4156H"
+    };
   </script>
 </head>
 
@@ -30,48 +30,115 @@
   <script src="/__/firebase/7.14.0/firebase-auth.js"></script>
   <script src="/__/firebase/7.14.0/firebase-firestore.js"></script>
   <script>
-       var loggedIn=false; 
+    var loggedIn = false;
     $(document).ready(function () {
       $("#login").hide();
       $("#showHideLogin").click(function () {
         if ($("#login").is(":visible")) {
-         $("#login").hide();
+          $("#login").hide();
         }
         else {
-         $("#login").show();
-         loggedIn=true; 
+          $("#login").show();
         }
         return false;
       });
     });
 
-    if (loggedIn==true){
-      if (document.getElementById("charName").value!=docRef.value){
-        document.getElementById("charName").value=docRef.value; 
+    $(document).ready(function () {
+      $("#logoutButton").hide(); 
+      window.onload=checkCookie();
+      if(loggedIn==true){
+        $('#loginButton').hide(); 
+        $('#logoutButton').show(); 
       }
-    }
-    firebase.initializeApp({
-            apiKey: 'AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A',
-            authDomain: 'character-cache-cc142.firebaseapp.com',
-            projectId: 'character-cache-cc142'
+      else{
+        $('#logoutButton').hide();
+        $('#loginButton').show();
+      }
+      $('#loginButton').unbind('click').click(function () {
+      username = $("#username").val();
+        password = $("#password").val();
+        checkForUser(username, password);
+      });
+    });
+    $('#logoutButton').unbind('click').click(function () {
+      document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      });
+
+    function checkForUser(username, password) {
+      loggedIn = false;
+      usersRef.where("username", "==", this.username)
+        .get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            console.log(doc.id, " => ", doc.data());
+            if (doc.data().password == this.password) {
+              console.log("logged in");
+              loggedIn = true;
+            }
+            else {
+              console.log("failed pw: ",doc.data().password);
+            }
           });
+          if (loggedIn) {
+            setCookie(username, password);
+          }
+          else {
+            alert("No login found for this username/password combination.");
+          }
+        })
+        .catch(function (error) {
+          console.log("Error getting documents: ", error);
+        });
+
+    }
+
+    function getInputVal(id) {
+      return document.getElementById(id).value;
+    }
+
+    firebase.initializeApp({
+      apiKey: 'AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A',
+      authDomain: 'character-cache-cc142.firebaseapp.com',
+      projectId: 'character-cache-cc142'
+    });
 
     var db = firebase.firestore();
-    var docRef = db.collection("cities").doc("SF");
+    var usersRef = db.collection("users");
 
-    docRef.get().then(function(doc) {
-    if (doc.exists) {
-        console.log("Document data:", doc.data());
-    } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
+    function setCookie(username,password){
+      var d=new Date(); 
+      d.setTime(d.getTime() + (30*24*60*60*1000));
+      var expires="expires: "+d.toGMTString(); 
+      document.cookie="username: " + username + ";" +expires +";path=/"; 
     }
-    }).catch(function(error) {
-    console.log("Error getting document:", error);
-    });
-    
+
+    function getCookie(username){
+      var decodedCookie=decodeURIComponent(document.cookie);
+      var dc = decodedCookie.split(";");
+      for(var i=0; i<dc.length; i++){
+        var c=dc[i];
+        while(c.charAt(0)==' '){
+          c=substring(1);
+        }
+        if(c.indexOf(username) ==0){
+          return c.substring(username.length, c.length);
+        }
+        return "";
+      }
+    }
+
+    function checkCookie(){
+      console.log("Checking cookie");
+      var user=getCookie("username");
+      if(user != ""){
+        alert("Welcome again " + user);
+        loggedIn=true; 
+      }
+      console.log("loggedIn: "+ loggedIn);
+    }
+
   </script>
-  </div>
   <button onclick="document.getElementById('login').style.display='block'">Login</button>
   <div id="login" class="login">
     <span onclick="document.getElementById('login').style.display='none'" class="close"
@@ -79,22 +146,20 @@
     <form class="modal-content animate" action="/action_page.php"></form>
     <div class="loginContainer">
       <label for="username"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uername" required>
+      <input type="text" placeholder="Enter Username" id="username" required>
 
       <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" required>
+      <input type="password" placeholder="Enter Password" id="password" required>
 
-      <button type="submit">Login</button>
+      <button type="submit" id="loginButton">Login</button>
       <button onclick="document.location = 'newUser.html'" id="newUser">New User</button>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
+      <button id=logoutButton">Logout</button>
+      
     </div>
 
     <div class="loginContainer" style="background-color:#f1f1f1">
       <button type="button" onclick="document.getElementById('login').style.display='none'"
         class="cancelbutton">Cancel</button>
-      <span class="password">Forgot <a href="#">password?</a></span>
     </div>
     </form>
   </div>
