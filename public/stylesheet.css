@@ -297,7 +297,7 @@ h1{
   border-radius:15px;
   border: 1px solid black;
 }
-#loginButton:hover, #newUserButton:hover, .cancelbutton:hover{
+#loginButton:hover, #newUserButton:hover, .cancelbutton:hover, #finishProfile:hover, #viewProfile:hover{
   background-color:  #C0C0C0;
   cursor: pointer;
 }
@@ -314,6 +314,15 @@ h1{
   width:250px;
   margin:5px;
  border: none;
+}
+#finishProfile, #viewProfile{
+  background-color: #af1b3f;
+  font-size: 16px;
+  width:125px;
+  height:35px;
+  margin:5px;
+  border-radius:15px;
+  border: 1px solid black;
 }
 a{
   color:black;

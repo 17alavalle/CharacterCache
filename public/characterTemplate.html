@@ -30,6 +30,14 @@
     <script src="/__/firebase/7.14.0/firebase-auth.js"></script>
     <script src="/__/firebase/7.14.0/firebase-firestore.js"></script>
     <script>
+        firebase.initializeApp({
+          apiKey: 'AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A',
+          authDomain: 'character-cache-cc142.firebaseapp.com',
+          projectId: 'character-cache-cc142'
+        });
+
+        var db = firebase.database();
+
         //Cookie functions
         window.onload = checkCookie();
         function getCookie(username) {
@@ -62,17 +70,52 @@
           return username; 
         }
 
+        function getInputVal(){
+            db.ref("characters/CiSMWwACvnJM1gbHyAWv/").once("value").then((snapshot) =>{
+                const data = snapshot.val();
+                consol.log("single data = ", data);
+            })
+            .catch((e) => {
+                consol.log("error returned - ", e);
+            });
+        }
+
         //Get varibale from database
-        var character = db.collection("characters").doc("CiSMWwACvnJM1gbHyAWv");
-        character.get().then(function(doc){
-            if (doc.exists){
-                console.log("Character data: ", doc.data());
-            } else{
-                console.log("No such charater!");
-            }
-        }).catch(function(error) {
-            console.log("Error getting document:", error);
+        //Functions to save new Character and Author from quiz to database
+        $(document).ready(function () {
+          $("#getCharacter").click(function () {
+            username=getUsername(); 
+            charName = getInputVal("characterName");
+            level = getInputVal("level");
+            race = getInputVal("race");
+            dndClass = getInputVal("class");
+            strength = getInputVal("strength");
+            dexterity = getInputVal("dexterity");
+            constitution = getInputVal("constitution");
+            intelligence = getInputVal("intelligence");
+            wisdom = getInputVal("wisdom");
+            charisma = getInputVal("charisma");
+            passiveperc = getInputVal("passiveperc");
+            hitpoints = getInputVal("HP");
+            armorclass = getInputVal("AC");
+            proficiencybonus = getInputVal("PB");
+            characterspeed = getInputVal("speed");
+            initiative = getInputVal("initiative");
+            alignment = getInputVal("alignment");
+            background = getInputVal("background");
+            traits = getInputVal("traits");
+            languages = getInputVal("langs");
+            attacks = getInputVal("attacks");
+            equipment = getInputVal("equipment");
+            description = getInputVal("description");
+
+            getCharacter(username, charName, level, race, dndClass, strength, dexterity, constitution, intelligence, wisdom, charisma,
+              passiveperc, hitpoints, armorclass, proficiencybonus, characterspeed, initiative, alignment, background, traits, languages,
+              attacks, equipment, description);
+            return false;
+          });
         });
+
         
     </script>
 
