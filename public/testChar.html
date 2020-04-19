@@ -1,80 +1,174 @@
 <!DOCTYPE html>
 <html>
-    <head>
-    <title>Character Cache</title>
-    <link rel="stylesheet" href="stylesheet.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script>
-        //Configure Firebase App
-        var firebaseConfig = {
-        apiKey: "AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A",
-        authDomain: "character-cache-cc142.firebaseapp.com",
-        databaseURL: "https://character-cache-cc142.firebaseio.com",
-        projectId: "character-cache-cc142",
-        storageBucket: "character-cache-cc142.appspot.com",
-        messagingSenderId: "1031944349621",
-        appId: "1:1031944349621:web:158ad89eda56b305599bfc",
-        measurementId: "G-7LMFF4156H"
-        };
-    </script>
-    </head>
 
-    <body>
-    <title>Character Cache</title>
-    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
-    <script src="/__/firebase/7.14.0/firebase-app.js"></script>
-    <script src="/__/firebase/7.14.0/firebase-auth.js"></script>
-    <script src="/__/firebase/7.14.0/firebase-firestore.js"></script>
-    <script>
-        //Cookie functions
-        window.onload = checkCookie();
-        function getCookie(username) {
-          var decodedCookie = decodeURIComponent(document.cookie);
-          var dc = decodedCookie.split(";");
-          for (var i = 0; i < dc.length; i++) {
-            var c = dc[i];
-            while (c.charAt(0) == ' ') {
-              c = substring(1);
+<head>
+  <title>Character Cache</title>
+  <link rel="stylesheet" href="stylesheet.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    //Configure Firebase App
+    var firebaseConfig = {
+      apiKey: "AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A",
+      authDomain: "character-cache-cc142.firebaseapp.com",
+      databaseURL: "https://character-cache-cc142.firebaseio.com",
+      projectId: "character-cache-cc142",
+      storageBucket: "character-cache-cc142.appspot.com",
+      messagingSenderId: "1031944349621",
+      appId: "1:1031944349621:web:158ad89eda56b305599bfc",
+      measurementId: "G-7LMFF4156H"
+    };
+  </script>
+</head>
+
+<body>
+  <title>Character Cache</title>
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+  <script src="/__/firebase/7.14.0/firebase-app.js"></script>
+  <script src="/__/firebase/7.14.0/firebase-auth.js"></script>
+  <script src="/__/firebase/7.14.0/firebase-firestore.js"></script>
+  <script>
+    var loggedIn = false;
+
+    //Toggle Login Modal
+    $(document).ready(function () {
+      $("#login").hide();
+      $("#showHideLogin").click(function () {
+        if ($("#login").is(":visible")) {
+          $("#login").hide();
+        }
+        else {
+          $("#login").show();
+        }
+        return false;
+      });
+    });
+
+    //Toggle Login/Logount
+    $(document).ready(function () {
+      $("#logoutButton").hide();
+      window.onload = checkCookie();
+      if (loggedIn == true) {
+        $('#loginButton').hide();
+        $('#logoutButton').show();
+      }
+      else {
+        $('#logoutButton').hide();
+        $('#loginButton').show();
+      }
+      $('#loginButton').unbind('click').click(function () {
+        username = $("#username").val();
+        password = $("#password").val();
+        checkForUser(username, password);
+      });
+    });
+    $('#logoutButton').unbind('click').click(function () {
+      document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    });
+
+    //Verify User is in database, if they are set cookie
+    function checkForUser(username, password) {
+      loggedIn = false;
+      usersRef.where("username", "==", this.username)
+        .get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            console.log(doc.id, " => ", doc.data());
+            if (doc.data().password == this.password) {
+              console.log("logged in");
+              loggedIn = true;
             }
-            if (c.indexOf(username) == 0) {
-              return c.substring(username.length, c.length);
+            else {
+              console.log("failed pw: ", doc.data().password);
             }
-            return "";
+          });
+          if (loggedIn) {
+            setCookie(username, password);
           }
-        }
-
-        function checkCookie() {
-          console.log("Checking cookie");
-          var user = getCookie("username");
-          if (user != "") {
-            loggedIn = true;
+          else {
+            alert("No login found for this username/password combination.");
           }
-          console.log("loggedIn: " + loggedIn);
-        }
-
-        function getUsername(){
-          var usernameWColon=getCookie("username");
-          var username=usernameWColon.substring(2);
-          return username; 
-        }
-
-        //Get varibale from database
-        var character = db.collection("characters").doc("CiSMWwACvnJM1gbHyAWv");
-        character.get().then(function(doc){
-            if (doc.exists){
-                console.log("Character data: ", doc.data());
-            } else{
-                console.log("No such charater!");
-            }
-        }).catch(function(error) {
-            console.log("Error getting document:", error);
+        })
+        .catch(function (error) {
+          console.log("Error getting documents: ", error);
         });
-        
-    </script>
+
+    }
+
+    //function to find and log all characters associated with a certain username
+    function getCharacters(username) {
+      charactersRef.get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          username=username.toString(); 
+          checkusername=doc.data().username.toString()
+          console.log(doc.data().username.toString());
+          if(checkusername.value==username.value){
+            console.log(doc.data().characterName);
+          }
+        });
+      });
+    }
+
+    //function retrieves user input 
+    function getInputVal(id) {
+      return document.getElementById(id).value;
+    }
+
+    //Initialize app in firebase and create references to each collection
+    firebase.initializeApp({
+      apiKey: 'AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A',
+      authDomain: 'character-cache-cc142.firebaseapp.com',
+      projectId: 'character-cache-cc142'
+    });
+
+    var db = firebase.firestore();
+    var usersRef = db.collection("users");
+    var charactersRef = db.collection("characters");
+    var authorsRef = db.collection("authors");
+
+    //Cookie functions for user 
+    function setCookie(username, password) {
+      var d = new Date();
+      d.setTime(d.getTime() + (30 * 24 * 60 * 60 * 1000));
+      var expires = "expires: " + d.toGMTString();
+      document.cookie = "username: " + username + ";" + expires + ";path=/";
+    }
+
+    function getCookie(username) {
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var dc = decodedCookie.split(";");
+      for (var i = 0; i < dc.length; i++) {
+        var c = dc[i];
+        while (c.charAt(0) == ' ') {
+          c = substring(1);
+        }
+        if (c.indexOf(username) == 0) {
+          return c.substring(username.length, c.length);
+        }
+        return "";
+      }
+    }
+
+    function checkCookie() {
+      console.log("Checking cookie");
+      var user = getCookie("username");
+      if (user != "") {
+        loggedIn = true;
+        getCharacters(user);
+        console.log("check cookie username =" + user);
+      }
+      console.log("loggedIn: " + loggedIn);
+    }
+
+    function getUsername() {
+      var usernameWColon = getCookie("username");
+      var username = usernameWColon.substring(2);
+      return usernameWColon;
+    }
+  </script>
 
     <!-- Nav Bar-->
     <div class="navBar">
@@ -88,45 +182,106 @@
     <div class="charTemplate">
         <div class="basicInfo">
             <div class="charProPic"><img src="images/default profile.png" style="max-width:100%; max-height:100%;"></div>
-            <h2>Default Name</h2> <br>
+            <h2 id="defaultName" >Default Name</h2> 
             <h3>Race</h3>
+            <h4 id="race">Race</h2>
             <h3>Class</h3>
+            <h4 id="charClass">Class</h2>
             <h3>Level</h3>
+            <h4 id="level">Level</h2>
         </div>
         <div class="abilityScoreNumbers">
             <h3>Ability Scores</h3>
-            <h4>Str: #</h4>
-            <h4>Dex: #</h4>
-            <h4>Con: #</h4>
-            <h4>Int: #</h4>
-            <h4>Wis: #</h4>
-            <h4>Char: #</h4>
+            <h4>Strength: #</h4>
+            <h5 id="strength">Strength</h3>
+            <h4>Dexterity: #</h4>
+            <h5 id="dexterity">Dexterity</h5>
+            <h4>Constitution: </h4>
+            <h5 id="constitution">Constitution</h5>
+            <h4>Intelligence: </h4>
+            <h5 id="intelligence">Intelligence</h5>
+            <h4>Wisdom: </h4>
+            <h5 id="wisdom">Wisdom</h5>
+            <h4>Charisma: </h4>
+            <h5 id="charisma">Charisma</h5>
         </div>
         <div class="basicStats">
-            <h3>PB</h3>
-            <h3>HP</h3>
-            <h3>AC</h3>
-            <h3>Speed</h3>
-            <h3>Init.</h3>
-            <h3>PP</h3>
+            <h3>Proficiency Bonus: </h3>
+            <h4 id="PB">PB</h4>
+            <h3>Hit Points: </h3>
+            <h4 id="HP">HP</h4>
+            <h3>Armor Class: </h3>
+            <h4 id="AC">AC</h4>
+            <h3>Speed: </h3>
+            <h4 id="speed">Speed</h4>
+            <h3>Initiative: </h3>
+            <h4 id="init">init</h4>
+            <h3>Passive Perception: </h3>
+            <h4 id="PP">PP</h4>
         </div>
         <div class="attacks">
-            <h3>Attacks:</h3>
+            <h3>Attacks: </h3>
+            <h4 id="attack">attack</h4>
         </div>
         <div class="extraCharInfo">
-            <h3>Alignment</h3>
-            <h3>Background</h3>
-            <h3>Traits</h3>
+            <h3>Alignment: </h3>
+            <h4 id="alignment">aligment</h4>
+            <h3>Background: </h3>
+            <h4 id="background">background</h4>
+            <h3>Traits: </h3>
+            <h4 id="traits"></h4></h4>
             <h3>Languages</h3>
+            <h4 id="languages">languages</h4>
         </div>
         <div class="equipment">
-            <h3>Equipment</h3>
+            <h3>Equipment: </h3>
+            <h4 id="equip">equip</h4>
         </div>
         <div class="description">
-            <h3>Character Description</h3>
+            <h3>Character Description: </h3>
+            <h4 id="descrip">descrip</h4>
         </div>
     </div>
 
+    <script>
+      function fillCharacterInfo(){
+        charactersRef.get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          username=getUsername().toString(); 
+          checkusername=doc.data().username.toString()
+          console.log(doc.data().username.toString());
+          console.log("this is running 1");
+          if(checkusername.value==username.value){
+            console.log("this is running");
+            document.getElementById("defaultName").innerHTML=doc.data().characterName; 
+            document.getElementById("race").innerHTML=doc.data().race;
+            document.getElementById("charClass").innerHTML=doc.data().dndClass;
+            document.getElementById("level").innerHTML=doc.data().level;
+            document.getElementById("strength").innerHTML=doc.data().strength;
+            document.getElementById("dexterity").innerHTML=doc.data().dexterity;
+            document.getElementById("constitution").innerHTML=doc.data().constitution;
+            document.getElementById("intelligence").innerHTML=doc.data().intelligence;
+            document.getElementById("wisdom").innerHTML=doc.data().wisdom;
+            document.getElementById("charisma").innerHTML=doc.data().charisma;
+            document.getElementById("PB").innerHTML=doc.data().proficiencyBonus;
+            document.getElementById("HP").innerHTML=doc.data().hitPoints;
+            document.getElementById("AC").innerHTML=doc.data().armorClass;
+            document.getElementById("speed").innerHTML=doc.data().characterSpeed;
+            document.getElementById("init").innerHTML=doc.data().initiative;
+            document.getElementById("PP").innerHTML=doc.data().passivePerception;
+            document.getElementById("attack").innerHTML=doc.data().attacks;
+            document.getElementById("alignment").innerHTML=doc.data().alignment;
+            document.getElementById("background").innerHTML=doc.data().background;
+            document.getElementById("traits").innerHTML=doc.data().traits;
+            document.getElementById("languages").innerHTML=doc.data().languages;
+            document.getElementById("equip").innerHTML=doc.data().equipment;
+            document.getElementById("descrip").innerHTML=doc.data().description;
+          }
+        });
+      });
+      } 
+      fillCharacterInfo();
+    </script>
 
     </body>
-</htlm>
+</html>

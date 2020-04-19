@@ -40,11 +40,13 @@ h1{
 .home{
     background-color: #C0C0C0; 
     overflow:hidden;
+    display: flex; 
 }
 .home div{
   float:left;
   margin: 15px;
   text-align: center;
+  flex-direction: row; 
 }
 .createNewChar {
   background-color: #af1b3f;

@@ -173,31 +173,6 @@
   <a href="about.html">About</a>
   <a href="userProfile.html">User Profile</a>
 </div>
-
-
-  <!-- Display Login Modal
-  <button onclick="document.getElementById('login').style.display='block'">Login</button>
-  <div id="login" class="login">
-    <span onclick="document.getElementById('login').style.display='none'" class="close"
-      title="Close Modal">&times;</span>
-    <form class="modal-content animate" action="/action_page.php"></form>
-    <div class="loginContainer">
-      <label for="username"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" id="username" required>
-
-      <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" id="password" required>
-
-      <button type="submit" id="loginButton">Login</button>
-      <button onclick="document.location = 'newUser.html'" id="newUser">New User</button>
-      <button id=logoutButton">Logout</button>
-
-      <button type="button" onclick="document.getElementById('login').style.display='none'"
-        class="cancelbutton">Cancel</button>
-    </div>
-    </form>
-  </div>
--->
   <button onclick="document.getElementById('login').style.display='block'">Login</button>
   <div id="login" class="login">
     <span onclick="document.getElementById('login').style.display='none'" 
@@ -247,6 +222,21 @@
       </div>
     </div>
   </div>
+  <script>
+    function getCharacters(username) {
+      charactersRef.get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          username=username.toString(); 
+          checkusername=doc.data().username.toString()
+          console.log(doc.data().username.toString());
+          if(checkusername.value==username.value){
+            console.log(doc.data().characterName);
+            document.getElementById("charName").innerHTML=doc.data().characterName;
+          }
+        });
+      });
+    }
+  </script>
 </body>
 
 </html>

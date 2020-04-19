@@ -43,7 +43,34 @@
     var charactersRef = db.collection("characters");
     var authorsRef = db.collection("authors");
 
-    //Cookie Functions
+  </script>
+  <div class="navBar">
+    <img class="logo" src="images/Logo no border.png" alt="CharacterCache Logo">
+    <a href="home.html">Home</a>
+    <a href="create.html">Create A Character</a>
+    <a href="about.html">About</a>
+    <a href="userProfile.html">User Profile</a>
+  </div>
+
+  <div class=containerUser>
+    <div class="col-md col-sm">
+      <div class="userProfile">
+        <div class="userProfPic">
+          <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
+        </div>
+      </div>
+      <div class=userInfo>
+        <h2>Username: </h2>
+        <h3 id="usernameText">text</h3>
+        <h2>Time Using Site: </h2>
+        <h3 id="timeText"></h3>
+        <h2>Last Character Created: </h2>
+        <h3 id="charactersCreatedText"></h3>
+      </div>
+    </div>
+
+    <script>
+      //Cookie Functions
     window.onload = checkCookie();
     function getCookie(username) {
       var decodedCookie = decodeURIComponent(document.cookie);
@@ -70,11 +97,25 @@
       getUsername(); 
     }
 
+    function getTimeUsingSite(){
+      usersRef.get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          username=username.toString(); 
+          checkusername=doc.data().username.toString()
+          console.log(doc.data().username.toString());
+          if(checkusername.value==username.value){
+            console.log(doc.data().characterName);
+            document.getElementById("timeText").innerHTML=doc.data().timeUsingSite;
+          }
+        });
+      });
+    }
+
     function getUsername() {
       var usernameWColon = getCookie("username");
       var username = usernameWColon.substring(2);
-      return username;
       document.getElementById("usernameText").innerHTML=username.toString();
+      return username;
     }
 
     //function to find and log all characters associated with a certain username
@@ -86,36 +127,12 @@
           console.log(doc.data().username.toString());
           if(checkusername.value==username.value){
             console.log(doc.data().characterName);
+            document.getElementById("charactersCreatedText").innerHTML=doc.data().characterName;
           }
         });
       });
     }
-
-  </script>
-  <div class="navBar">
-    <img class="logo" src="images/Logo no border.png" alt="CharacterCache Logo">
-    <a href="home.html">Home</a>
-    <a href="create.html">Create A Character</a>
-    <a href="about.html">About</a>
-    <a href="userProfile.html">User Profile</a>
-  </div>
-
-  <div class=containerUser>
-    <div class="col-md col-sm">
-      <div class="userProfile">
-        <div class="userProfPic">
-          <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
-        </div>
-      </div>
-      <div class=userInfo>
-        <h2>Username: </h2>
-        <h3 id="usernameText"></h3>
-        <h2>Time Using Site: </h2>
-        <h3 id="usernameText"></h3>
-        <h2>Characters Created: </h2>
-        <h3 id="charactersCreated"></h3>
-      </div>
-    </div>
+    </script>
 </body>
 
 </html>
