@@ -1,32 +1,59 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Character Cache</title>
-    <link rel="stylesheet" href="stylesheet.css">
-  </head>
-  <body>
-    <div class="navBar">
-      <img class="logo" src="images/Logo no border.png" alt="CharacterCache Logo">
-      <a href="home.html">Home</a>
-      <a href="create.html">Create A Character</a>
-      <a href="about.html">About</a>
-      <a href="userProfile.html">User Profile</a>
-    </div>
 
-    <div class="container about">
-      <h1>About Character Cache</h1>
-      <h2>How to Use</h2>
-        <p>This website is meant to offer the basic outline for the user to develop and hold their 
-          character. </p>
-        <p>Walk through how to create a character, choices of profiles, and then how home page
-          is organized. The differences between the three character types are listed below.</p>
-      <h2>D&D Character Sheet</h2>
-          <p>Either written or image of how D&D characters will work on CharacterCache</p>
-      <h2>Author Character Profile</h2>
-          <p>Either written or image of how author characters will work on CharacterCache</p>
-      <h2>Acting Character Profile</h2>
-          <p>Either written or image of how acting characters will work on CharacterCache</p>
-    </div>
+<head>
+  <title>Character Cache</title>
+  <link rel="stylesheet" href="stylesheet.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+       var firebaseConfig = {
+         apiKey: "AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A",
+          authDomain: "character-cache-cc142.firebaseapp.com",
+          databaseURL: "https://character-cache-cc142.firebaseio.com",
+          projectId: "character-cache-cc142",
+          storageBucket: "character-cache-cc142.appspot.com",
+          messagingSenderId: "1031944349621",
+          appId: "1:1031944349621:web:158ad89eda56b305599bfc",
+          measurementId: "G-7LMFF4156H"
+        };
+  </script>
+</head>
 
-  </body>
+<body>
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+  <title>Character Cache</title>
+  <script src="/__/firebase/7.14.0/firebase-app.js"></script>
+  <script src="/__/firebase/7.14.0/firebase-auth.js"></script>
+  <script src="/__/firebase/7.14.0/firebase-firestore.js"></script>
+    </form>
+  </div>
+  <div class="navBar">
+    <img class="logo" src="images/Logo no border.png" alt="CharacterCache Logo">
+    <a href="home.html">Home</a>
+    <a href="create.html">Create A Character</a>
+    <a href="about.html">About</a>
+    <a href="userProfile.html">User Profile</a>
+  </div>
+
+  <div class="container about">
+    <h1>About Character Cache</h1>
+    <h2>How to Use</h2>
+    <p>This website is meant to offer the basic outline for the user to develop and hold their
+      character. </p>
+    <p>Walk through how to create a character, choices of profiles, and then how home page
+      is organized. The differences between the three character types are listed below.</p>
+    <h2>D&D Character Sheet</h2>
+    <p>Either written or image of how D&D characters will work on CharacterCache</p>
+    <h2>Author Character Profile</h2>
+    <p>Either written or image of how author characters will work on CharacterCache</p>
+    <h2>Acting Character Profile</h2>
+    <p>Either written or image of how acting characters will work on CharacterCache</p>
+  </div>
+
+</body>
+
 </html>

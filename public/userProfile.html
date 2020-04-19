@@ -1,30 +1,121 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Character Cache</title>
-    <link rel="stylesheet" href="stylesheet.css">
-  </head>
-  <body>
-    <div class="navBar">
-      <img class="logo" src="images/Logo no border.png" alt="CharacterCache Logo">
-      <a href="home.html">Home</a>
-      <a href="create.html">Create A Character</a>
-      <a href="about.html">About</a>
-      <a href="userProfile.html">User Profile</a>
-    </div>
 
-    <div class= containerUser>
-      <div class="col-md col-sm">
-        <div class="userProfile">
-          <div class="userProfPic">
-            <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
-          </div>
+<head>
+  <title>Character Cache</title>
+  <link rel="stylesheet" href="stylesheet.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A",
+      authDomain: "character-cache-cc142.firebaseapp.com",
+      databaseURL: "https://character-cache-cc142.firebaseio.com",
+      projectId: "character-cache-cc142",
+      storageBucket: "character-cache-cc142.appspot.com",
+      messagingSenderId: "1031944349621",
+      appId: "1:1031944349621:web:158ad89eda56b305599bfc",
+      measurementId: "G-7LMFF4156H"
+    };
+  </script>
+</head>
+
+<body>
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+  <title>Character Cache</title>
+  <script src="/__/firebase/7.14.0/firebase-app.js"></script>
+  <script src="/__/firebase/7.14.0/firebase-auth.js"></script>
+  <script src="/__/firebase/7.14.0/firebase-firestore.js"></script>
+  <script>
+    //Initialize app in firebase
+    firebase.initializeApp({
+          apiKey: 'AIzaSyBO26wJCjlEFzK9GiP7HoIs428bSmr-U0A',
+          authDomain: 'character-cache-cc142.firebaseapp.com',
+          projectId: 'character-cache-cc142'
+        });
+
+    //Reference to database collections
+    var db = firebase.firestore();
+    var usersRef = db.collection("users");
+    var charactersRef = db.collection("characters");
+    var authorsRef = db.collection("authors");
+
+    //Cookie Functions
+    window.onload = checkCookie();
+    function getCookie(username) {
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var dc = decodedCookie.split(";");
+      for (var i = 0; i < dc.length; i++) {
+        var c = dc[i];
+        while (c.charAt(0) == ' ') {
+          c = substring(1);
+        }
+        if (c.indexOf(username) == 0) {
+          return c.substring(username.length, c.length);
+        }
+        return "";
+      }
+    }
+    function checkCookie() {
+      console.log("Checking cookie");
+      var user = getCookie("username");
+      if (user != "") {
+        loggedIn = true;
+        getCharacters(user);
+      }
+      console.log("loggedIn: " + loggedIn);
+      getUsername(); 
+    }
+
+    function getUsername() {
+      var usernameWColon = getCookie("username");
+      var username = usernameWColon.substring(2);
+      return username;
+      document.getElementById("usernameText").innerHTML=username.toString();
+    }
+
+    //function to find and log all characters associated with a certain username
+    function getCharacters(username) {
+      charactersRef.get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          username=username.toString(); 
+          checkusername=doc.data().username.toString()
+          console.log(doc.data().username.toString());
+          if(checkusername.value==username.value){
+            console.log(doc.data().characterName);
+          }
+        });
+      });
+    }
+
+  </script>
+  <div class="navBar">
+    <img class="logo" src="images/Logo no border.png" alt="CharacterCache Logo">
+    <a href="home.html">Home</a>
+    <a href="create.html">Create A Character</a>
+    <a href="about.html">About</a>
+    <a href="userProfile.html">User Profile</a>
+  </div>
+
+  <div class=containerUser>
+    <div class="col-md col-sm">
+      <div class="userProfile">
+        <div class="userProfPic">
+          <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
         </div>
+      </div>
       <div class=userInfo>
         <h2>Username: </h2>
+        <h3 id="usernameText"></h3>
         <h2>Time Using Site: </h2>
+        <h3 id="usernameText"></h3>
         <h2>Characters Created: </h2>
+        <h3 id="charactersCreated"></h3>
       </div>
     </div>
-  </body>
+</body>
+
 </html>
