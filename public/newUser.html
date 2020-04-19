@@ -21,31 +21,6 @@
         </script>
     </head>
     <body>
-        <button onclick="document.getElementById('login').style.display='block'">Login</button>
-        <div id="login" class="login">
-            <span onclick="document.getElementById('login').style.display='none'" 
-        class="close" title="Close Modal">&times;</span>
-        <form class="modal-content animate" action="/action_page.php"></form>
-            <div class="loginContainer">
-                <label for="username"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="uername" required>
-
-                <label for="password"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="password" required>
-
-                <button type="submit">Login</button>
-                <button onclick="document.location = 'newUser.html'" id="newUser">New User</button>
-                <label>
-                <input type="checkbox" checked="checked" name="remember"> Remember me
-                </label>
-            </div>
-
-            <div class="loginContainer" style="background-color:#f1f1f1">
-                <button type="button" onclick="document.getElementById('login').style.display='none'" class="cancelbutton">Cancel</button>
-                <span class="password">Forgot <a href="#">password?</a></span>
-            </div>
-            </form>
-        </div>
         <div class="navBar">
         <img class="logo" src="images/Logo no border.png" alt="CharacterCache Logo">
         <a href="home.html">Home</a>
@@ -53,15 +28,18 @@
         <a href="about.html">About</a>
         <a href="userProfile.html">User Profile</a>
         </div>
-        <div class=newUserProfile>
-            <form>
-                <p>What is your username?</p>
-                <input type="text" id="username" placeholder="Input Username">
-            </form>
-            <link rel="stylesheet" href="stylesheet.css">
-            <label for="profilePic">Upload your profile picture: </label>
-            <input type="file" id="userProfilePic" name="userProfilePic" accept="image/png, image/jpeg">
-
+        
+        <div class="login newUserCreate">
+            <div class="modal-content">
+                <form>
+                    <label>What is your username?</label>
+                    <input type="text" id="newUsername" placeholder="Input Username"><br>
+                    <label>Wat is your password?</label>
+                    <input type="text" id="newPassword" placeholder="Input password?">
+                </form>
+                <label for="profilePic">Upload your profile picture: </label>
+                <input type="file" id="userProfilePic" name="userProfilePic" accept="image/png, image/jpeg">
+            </div>
         </div>
     </body>
 </html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Character Cache</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+      function openForm() {
+        document.getElementById("myForm").style.display = "block";
+      }
+
+      function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+}
+    </script>
+  </head>
+  <body>
+    <div class="navBar">
+      <img class="logo" src="images/Logo no border.png" alt="CharacterCache Logo">
+      <a href="home.html">Home</a>
+      <a href="create.html">Create A Character</a>
+      <a href="about.html">About</a>
+      <a href="userProfile.html">User Profile</a>
+    </div>
+    <div class="container">
+        <!--<button onclick="document.getElementById('login').style.display='block'">Login</button> -->
+        <div id="login" class="login">
+          <span onclick="document.getElementById('login').style.display='none'" 
+        class="close" title="Close Modal">&times;</span>
+            <h2>Login</h2>
+            <form class="modal-content animate" action="/action_page.php">
+                <!-- <div class="loginContainer"> -->
+                    <label for="username"><b>Username</b></label>
+                    <input class ="loginInput" type="text" placeholder="Enter Username" name="uername" required> <br>
+        
+                    <label for="password"><b>Password</b></label>
+                    <input class ="loginInput" type="password" placeholder="Enter Password" name="password" required> <br>
+        
+                    <label>
+                        <input type="checkbox" checked="checked" name="remember"> Remember me
+                    </label> <br>
+
+                    <button id="loginButton" type="submit"><b>Login</b></button> <br>
+                    <span class="password"><a href="#"> Forgot password?</a></span> <br> <br>
+
+                    <button id ="newUserButton" onclick="document.location = 'newUser.html'" id="newUser">New User? Create an Account!</button> <br>
+                    <button type="button" onclick="document.getElementById('login').style.display='none'" class="cancelbutton">Cancel</button>
+                    
+               <!-- </div> --> 
+            </form>
+        </div>
+    </div>
+  </body>
+</html>
