@@ -319,3 +319,94 @@ a{
   color:black;
   text-decoration:none;
 }
+.charTemplate{
+  display: block;
+  width:99%;
+}
+.charProPic{
+  background-color: #C0C0C0;
+  height: 175px;
+  width:150px;
+  border: 2px solid black;
+  margin: 10px;
+  float:left;
+}
+.basicInfo{
+  height:175px;
+  width:99%;
+  line-height: 50px;
+  float:left;
+}
+.abilityScoreNumbers{
+  width:99%;
+  height:60px;
+  background-color: #af1b3f;
+  color:black;
+  padding: 20px;
+  display:block;
+  float:left;
+  margin:0px;
+}
+.abilityScoreNumbers h3{
+  float:left;
+  display:block;
+  color:black;
+  padding: 0px 100px 0px 0px;
+}
+.abilityScoreNumbers h4{
+  float:left;
+  display:block;
+  color:black;
+  padding: 0px 115px 0px 0px;
+}
+.basicStats{
+  float:left;
+  display:block;
+  width:20%;
+  height: 150px;
+  border: 2px solid #000;
+  border-radius: 20px;
+  margin:15px 15px;
+}
+.attacks{
+  float:left;
+  display:block;
+  width:75%;
+  height: 150px;
+  border: 2px solid #000;
+  border-radius: 20px;
+  margin:15px 10px;
+}
+.attacks h3, .extraCharInfo h3, .basicStats h3, .equipment h3, .description h3, .basicInfo h3, .basicInfo h2{
+  float:left;
+  display:block;
+  color:black;
+  padding: 0px 20px;
+}
+.extraCharInfo{
+  float:left;
+  display:block;
+  width:40%;
+  height: 150px;
+  border: 2px solid #000;
+  border-radius: 20px;
+  margin:15px 10px;
+}
+.equipment{
+  float:left;
+  display:block;
+  width:55%;
+  height: 150px;
+  border: 2px solid #000;
+  border-radius: 20px;
+  margin:15px 10px;
+}
+.description{
+  float:left;
+  display:block;
+  width:99%;
+  height: 200px;
+  border: 2px solid #000;
+  border-radius: 20px;
+  margin:15px 10px;
+}

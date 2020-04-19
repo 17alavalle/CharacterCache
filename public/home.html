@@ -165,6 +165,15 @@
     }
 
   </script>
+<!-- Nav Bar-->
+<div class="navBar">
+  <img class="logo" src="images/Logo no border.png" alt="CharacterCache Logo">
+  <a href="home.html">Home</a>
+  <a href="create.html">Create A Character</a>
+  <a href="about.html">About</a>
+  <a href="userProfile.html">User Profile</a>
+</div>
+
 
   <!-- Display Login Modal -->
   <button onclick="document.getElementById('login').style.display='block'">Login</button>
@@ -183,22 +192,13 @@
       <button onclick="document.location = 'newUser.html'" id="newUser">New User</button>
       <button id=logoutButton">Logout</button>
 
-    </div>
-
-    <div class="loginContainer" style="background-color:#f1f1f1">
       <button type="button" onclick="document.getElementById('login').style.display='none'"
         class="cancelbutton">Cancel</button>
     </div>
     </form>
   </div>
 
-  <div class="navBar">
-    <img class="logo" src="images/Logo no border.png" alt="CharacterCache Logo">
-    <a href="home.html">Home</a>
-    <a href="create.html">Create A Character</a>
-    <a href="about.html">About</a>
-    <a href="userProfile.html">User Profile</a>
-  </div>
+  
   <div class="container home">
     <div class="row">
       <div class="col-md col-sm">
@@ -209,14 +209,14 @@
         </a>
       </div>
       <div class="col-md col-sm">
-        <div class="characterProfile">
+        <a href="testChar.html"><div class="characterProfile">
           <div class="homeProfPic">
             <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
           </div>
           <div class="homeCharName">
             <p id="charName">Name</p>
           </div>
-        </div>
+        </div></a>
       </div>
     </div>
   </div>
