@@ -250,9 +250,7 @@
           username=getUsername().toString(); 
           checkusername=doc.data().username.toString()
           console.log(doc.data().username.toString());
-          console.log("this is running 1");
           if(checkusername.value==username.value){
-            console.log("this is running");
             document.getElementById("defaultName").innerHTML=doc.data().characterName; 
             document.getElementById("race").innerHTML=doc.data().race;
             document.getElementById("charClass").innerHTML=doc.data().dndClass;

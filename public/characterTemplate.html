@@ -242,7 +242,7 @@
     <script>
       function fillCharacterInfo(){
         charactersRef.get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
+        querySnapshot.forEach((doc) => { 
           username=username.toString(); 
           checkusername=doc.data().username.toString()
           console.log(doc.data().username.toString());

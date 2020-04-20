@@ -97,9 +97,8 @@
         });
 
     }
-
-    //function to find and log all characters associated with a certain username
-    function getCharacters(username) {
+        //function to find and log all characters associated with a certain username
+        function getCharacters(username) {
       charactersRef.get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           username=username.toString(); 
@@ -153,13 +152,11 @@
     }
 
     function checkCookie() {
-      console.log("Checking cookie");
       var user = getCookie("username");
       if (user != "") {
         alert("Welcome again " + user);
         loggedIn = true;
         getCharacters(user);
-        console.log("check cookie username =" + user);
       }
       console.log("loggedIn: " + loggedIn);
     }
@@ -211,43 +208,119 @@
         </a>
       </div>
       <div class="grid-item">
-        <a href="characterTemplate.html"><div class="characterCard">
+        <a href="testChar.html"><div class="characterCard">
           <div class="homeProfPic">
             <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
           </div>
           <div class="homeCharName">
-            <p id="charName">Name</p>
+            <p id="1">Name</p>
           </div>
         </div></a>
       </div>
-      <!--
-        <div class="grid-item">
-          <a href="characterTemplate.html"><div class="characterCard">
-            <div class="homeProfPic">
-              <img class="defaultPic" src="images/default profile.png" alt="Character Profile Picture">
-            </div>
-            <div class="homeCharName">
-              <p id="charName">Name</p>
-            </div>
-          </div></a>
+      <div class="grid-item">
+        <a href="testChar.html"><div class="characterCard">
+          <div class="homeProfPic">
+            <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
+          </div>
+          <div class="homeCharName">
+            <p id="2">Name</p>
+          </div>
+        </div></a>
+      </div>
+      <div class="grid-item">
+        <a href="testChar.html"><div class="characterCard">
+          <div class="homeProfPic">
+            <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
+          </div>
+          <div class="homeCharName">
+            <p id="3">Name</p>
+          </div>
+        </div></a>
+      </div>
+    </div>
+  </div>
+  <div class="container home">
+    <div class="grid-item">
+      <a href="testChar.html"><div class="characterCard">
+        <div class="homeProfPic">
+          <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
         </div>
-      -->
+        <div class="homeCharName">
+          <p id="4">Name</p>
+        </div>
+      </div></a>
+    </div>
+      <div class="grid-item">
+        <a href="testChar.html"><div class="characterCard">
+          <div class="homeProfPic">
+            <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
+          </div>
+          <div class="homeCharName">
+            <p id="5">Name</p>
+          </div>
+        </div></a>
+      </div>
+      <div class="grid-item">
+        <a href="testChar.html"><div class="characterCard">
+          <div class="homeProfPic">
+            <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
+          </div>
+          <div class="homeCharName">
+            <p id="6">Name</p>
+          </div>
+        </div></a>
+      </div>
+      <div class="grid-item">
+        <a href="testChar.html"><div class="characterCard">
+          <div class="homeProfPic">
+            <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
+          </div>
+          <div class="homeCharName">
+            <p id="7">Name</p>
+          </div>
+        </div></a>
+      </div>
     </div>
   </div>
   <script>
+    function change(array,position, desiredValue){
+      array[position]=desiredValue; 
+      return array; 
+    }
     function getCharacters(username) {
+      count=1; 
       charactersRef.get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           username=username.toString(); 
-          checkusername=doc.data().username.toString()
-          console.log(doc.data().username.toString());
+          checkusername=doc.data().username.toString();
+          x=count.toString(); 
           if(checkusername.value==username.value){
-            console.log(doc.data().characterName);
-            document.getElementById("charName").innerHTML=doc.data().characterName;
+            document.getElementById(x).innerHTML=doc.data().characterName; 
           }
+          count+=1; 
+        });
+      });
+      authorsRef.get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          username=username.toString(); 
+          checkusername=doc.data().username.toString();
+          x=count.toString(); 
+          if(checkusername.value==username.value){
+            document.getElementById(x).innerHTML=doc.data().authorName; 
+          }
+          count+=1; 
         });
       });
     }
+    $(document).ready(function () {
+      for (var i=0; i<7; i++){
+        var x=i.toString(); 
+        var title=document.getElementById(x).innerHTML; 
+        if(title="Name"){
+          $(x).hide(); 
+        }
+      }
+    });
   </script>
 </body>
 

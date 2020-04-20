@@ -178,6 +178,7 @@
 
         $(document).ready(function () {
           $("#saveAuthor").click(function () {
+            username=getUsername();
             authorName = getInputVal("authorCharName");
             age = getInputVal("age");
             gender = getInputVal("gender");
@@ -188,15 +189,16 @@
             motivation = getInputVal("motivation");
             description = getInputVal("description");
 
-            saveAuthor(authorName, age, gender, sexOrientation, physical, profession, traits,
+            saveAuthor(username, authorName, age, gender, sexOrientation, physical, profession, traits,
               motivation, description);
             return false;
           });
         });
 
-        function saveAuthor(authorName, age, gender, sexOrientation, physical, profession, traits,
+        function saveAuthor(username, authorName, age, gender, sexOrientation, physical, profession, traits,
           motivation, description) {
           db.collection("authors").add({
+            username: username, 
             authorName: authorName,
             age: age,
             gender: gender,
@@ -231,7 +233,7 @@
         var db = firebase.firestore();
 
       </script>
-      <script>
+<!--       <script>
         var currentTab = 0; // Current tab is set to be the first tab (0)
         showTab(currentTab); // Display the current tab
 
@@ -281,7 +283,7 @@
           //... and adds the "active" class to the current step:
           x[n].className += " active";
         }
-      </script>
+      </script> -->
     </form>
     <div id="DNDquiz">
       <form>
