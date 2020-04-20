@@ -26,8 +26,27 @@
             modal.style.display = "none";
             }
         }
+        var db = firebase.firestore();
+        $(document).ready(function () {
+             $("#finishProfile").click(function () {
+                 username=getInputVal("newUsername");
+                 password=getInputVal("newPassword");
+                 saveProfile(username, password);
+                 return false; 
+             });
+        });
+
+        function saveProfile(username, password) {
+             db.collection("users").add({
+                 username: username, 
+                 password: password,
+                 timeUsingSite:4 
+             })
+         }
+         function getInputVal(id) {
+             return document.getElementById(id).value;
+         }
         </script>
-    </head>
     <body>
         <div class="navBar">
         <img class="logo" src="images/Logo no border.png" alt="CharacterCache Logo">
