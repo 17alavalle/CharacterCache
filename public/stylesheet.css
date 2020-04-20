@@ -3,12 +3,6 @@ body{
   color: black;
   font-family: 'Rockwell', sans-serif;
 }
-.container{
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 15px;
-  padding-right: 15px;
-}
 .containerUser{
     display: flex;
     flex-direction: column; 
@@ -17,30 +11,32 @@ h1{
   color: #af1b3f; 
   text-align: center; 
 }
-@media (min-wdith: 768px){
-  .container{
-    width: 750px;
-  }
-}
-@media (min-wdith: 992px){
-  .container{
-    width: 970px;
-  }
-}
-@media (min-wdith: 1200px){
-  .container{
-    width: 1170px;
-  }
-}
-.row{
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-gap:20px;
+.container{
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .home{
-    background-color: #C0C0C0; 
-    overflow:hidden;
-    display: flex; 
+  background-color: #C0C0C0; 
+  overflow:hidden;
+  display: flex; 
+  max-width: 1335px;
+  margin: 0 auto;
+}
+.grid-row{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+.grid-item{
+  height: 175px;
+  width:150;
+  flex-basis:15%;
+  -ms-flex:auto;
+  position:relative;
+  padding: 10px;
+  box-sizing: border-box;
 }
 .home div{
   float:left;
