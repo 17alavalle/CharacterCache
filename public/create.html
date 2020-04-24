@@ -141,6 +141,7 @@
             saveCharacter(username, charName, level, race, dndClass, strength, dexterity, constitution, intelligence, wisdom, charisma,
               passiveperc, hitpoints, armorclass, proficiencybonus, characterspeed, initiative, alignment, background, traits, languages,
               attacks, equipment, description);
+            
             return false;
           });
         });
@@ -173,7 +174,9 @@
             attacks: attacks,
             equipment: equipment,
             description: description
-          })
+          }).then((querySnapshot) => {
+            window.location.href = "thank-you.html";
+          });
         }
 
         $(document).ready(function () {
@@ -208,7 +211,9 @@
             traits: traits,
             motivation: motivation,
             description: description
-          })
+          }).then((querySnapshot) => {
+            window.location.href = "thank-you.html";
+          });
         }
 
         function getRace() {

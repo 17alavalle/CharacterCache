@@ -97,14 +97,14 @@
         });
 
     }
-        //function to find and log all characters associated with a certain username
-        function getCharacters(username) {
+    //function to find and log all characters associated with a certain username
+    function getCharacters(username) {
       charactersRef.get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          username=username.toString(); 
-          checkusername=doc.data().username.toString()
+          username = username.toString();
+          checkusername = doc.data().username.toString()
           //console.log(doc.data().username.toString());
-          if(checkusername.value==username.value){
+          if (checkusername.value == username.value) {
             //console.log(doc.data().characterName);
           }
         });
@@ -162,42 +162,44 @@
     }
 
   </script>
-<!-- Nav Bar-->
-<div class="navBar">
-  <img class="logo" src="images/Logo no border.png" alt="CharacterCache Logo">
-  <a href="home.html">Home</a>
-  <a href="create.html">Create A Character</a>
-  <a href="about.html">About</a>
-  <a href="userProfile.html">User Profile</a>
-</div>
+  <!-- Nav Bar-->
+  <div class="navBar">
+    <img class="logo" src="images/Logo no border.png" alt="CharacterCache Logo">
+    <a href="home.html">Home</a>
+    <a href="create.html">Create A Character</a>
+    <a href="about.html">About</a>
+    <a href="userProfile.html">User Profile</a>
+  </div>
   <button onclick="document.getElementById('login').style.display='block'">Login</button>
   <div id="login" class="login">
-    <span onclick="document.getElementById('login').style.display='none'" 
-  class="close" title="Close Modal">&times;</span>
-      <h2>Login</h2>
-      <form class="modal-content animate" action="/action_page.php">
-          <!-- <div class="loginContainer"> -->
-              <label for="username"><b>Username</b></label>
-              <input class ="loginInput" type="text" placeholder="Enter Username" name="uername" required> <br>
+    <span onclick="document.getElementById('login').style.display='none'" class="close"
+      title="Close Modal">&times;</span>
+    <h2>Login</h2>
+    <form class="modal-content animate" action="/action_page.php">
+      <!-- <div class="loginContainer"> -->
+      <label for="username"><b>Username</b></label>
+      <input class="loginInput" type="text" placeholder="Enter Username" name="uername" required> <br>
 
-              <label for="password"><b>Password</b></label>
-              <input class ="loginInput" type="password" placeholder="Enter Password" name="password" required> <br>
+      <label for="password"><b>Password</b></label>
+      <input class="loginInput" type="password" placeholder="Enter Password" name="password" required> <br>
 
-              <label>
-                  <input type="checkbox" checked="checked" name="remember"> Remember me
-              </label> <br>
+      <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label> <br>
 
-              <button id="loginButton" type="submit"><b>Login</b></button> <br>
-              <span class="password"><a href="#"> Forgot password?</a></span> <br> <br>
+      <button id="loginButton" type="submit"><b>Login</b></button> <br>
+      <span class="password"><a href="#"> Forgot password?</a></span> <br> <br>
 
-              <button id ="newUserButton" onclick="document.location = 'newUser.html'" id="newUser">New User? Create an Account!</button> <br>
-              <button type="button" onclick="document.getElementById('login').style.display='none'" class="cancelbutton">Cancel</button>
-              
-        <!-- </div> --> 
-      </form>
+      <button id="newUserButton" onclick="document.location = 'newUser.html'" id="newUser">New User? Create an
+        Account!</button> <br>
+      <button type="button" onclick="document.getElementById('login').style.display='none'"
+        class="cancelbutton">Cancel</button>
+
+      <!-- </div> -->
+    </form>
   </div>
 
-  
+
   <div class="container home">
     <div class="grid-row">
       <div class="grid-item">
@@ -207,145 +209,164 @@
           </div>
         </a>
       </div>
-      <div class="grid-item">
-        <a href="testChar.html" id="1link"><div class="characterCard">
-          <div class="homeProfPic">
-            <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
+      <div class="grid-item" id="1box">
+        <a href="testChar.html" id="1link">
+          <div class="characterCard">
+            <div class="homeProfPic">
+              <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
+            </div>
+            <div class="homeCharName">
+              <p id="1">Name</p>
+            </div>
           </div>
-          <div class="homeCharName">
-            <p id="1">Name</p>
-          </div>
-        </div></a>
+        </a>
       </div>
-      <div class="grid-item">
-        <a href="testChar.html" id="2link"><div class="characterCard">
-          <div class="homeProfPic">
-            <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
+      <div class="grid-item" id="2box">
+        <a href="testChar.html" id="2link">
+          <div class="characterCard">
+            <div class="homeProfPic">
+              <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
+            </div>
+            <div class="homeCharName">
+              <p id="2">Name</p>
+            </div>
           </div>
-          <div class="homeCharName">
-            <p id="2">Name</p>
-          </div>
-        </div></a>
+        </a>
       </div>
-      <div class="grid-item">
-        <a href="testChar.html" id="3link"><div class="characterCard">
-          <div class="homeProfPic">
-            <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
+      <div class="grid-item" id="3box">
+        <a href="testChar.html" id="3link">
+          <div class="characterCard">
+            <div class="homeProfPic">
+              <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
+            </div>
+            <div class="homeCharName">
+              <p id="3">Name</p>
+            </div>
           </div>
-          <div class="homeCharName">
-            <p id="3">Name</p>
-          </div>
-        </div></a>
+        </a>
       </div>
     </div>
   </div>
   <div class="container home">
-    <div class="grid-item">
-      <a href="testChar.html" id="4link"><div class="characterCard">
-        <div class="homeProfPic">
-          <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
+    <div class="grid-item" id="4box">
+      <a href="testChar.html" id="4link">
+        <div class="characterCard">
+          <div class="homeProfPic">
+            <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
+          </div>
+          <div class="homeCharName">
+            <p id="4">Name</p>
+          </div>
         </div>
-        <div class="homeCharName">
-          <p id="4">Name</p>
-        </div>
-      </div></a>
+      </a>
     </div>
-      <div class="grid-item">
-        <a href="testChar.html" id="5link"><div class="characterCard">
+    <div class="grid-item" id="5box">
+      <a href="testChar.html" id="5link">
+        <div class="characterCard">
           <div class="homeProfPic">
             <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
           </div>
           <div class="homeCharName">
             <p id="5">Name</p>
           </div>
-        </div></a>
-      </div>
-      <div class="grid-item">
-        <a href="testChar.html" id="6link"><div class="characterCard">
+        </div>
+      </a>
+    </div>
+    <div class="grid-item" id="6box">
+      <a href="testChar.html" id="6link">
+        <div class="characterCard">
           <div class="homeProfPic">
             <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
           </div>
           <div class="homeCharName">
             <p id="6">Name</p>
           </div>
-        </div></a>
-      </div>
-      <div class="grid-item">
-        <a href="testChar.html" id="7link"><div class="characterCard">
+        </div>
+      </a>
+    </div>
+    <div class="grid-item" id="7box">
+      <a href="testChar.html" id="7link">
+        <div class="characterCard">
           <div class="homeProfPic">
             <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
           </div>
           <div class="homeCharName">
             <p id="7">Name</p>
           </div>
-        </div></a>
-      </div>
+        </div>
+      </a>
     </div>
+  </div>
   </div>
   <script>
     function getCharacters(username) {
-      count=1; 
+      count = 1;
       charactersRef.get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          username=username.toString(); 
-          checkusername=doc.data().username.toString();
-          x=count.toString(); 
-          currentLinkElement = count.toString()+"link";
-          if(checkusername.value==username.value){
-            document.getElementById(x).innerHTML=doc.data().characterName;
-            document.getElementById(currentLinkElement).href = "testChar.html?id="+doc.id.toString();
-            console.log("Attempting ID: ",doc.id); 
+          username = username.toString();
+          checkusername = doc.data().username.toString();
+          x = count.toString();
+          currentLinkElement = count.toString() + "link";
+          if (checkusername.value == username.value) {
+            document.getElementById(x).innerHTML = doc.data().characterName;
+            document.getElementById(currentLinkElement).href = "testChar.html?id=" + doc.id.toString();
+            console.log("Attempting ID: ", doc.id);
           }
-          count+=1; 
+          count += 1;
         });
       });
       authorsRef.get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          username=username.toString(); 
-          checkusername=doc.data().username.toString();
-          x=count.toString(); 
-          currentLinkElement = count.toString()+"link";
-          if(checkusername.value==username.value){
-            document.getElementById(x).innerHTML=doc.data().authorName; 
-            document.getElementById(currentLinkElement).href = "testAuthor.html?id="+doc.id.toString();
-            console.log("Attempting ID: ",doc.id); 
+          username = username.toString();
+          checkusername = doc.data().username.toString();
+          x = count.toString();
+          currentLinkElement = count.toString() + "link";
+          if (checkusername.value == username.value) {
+            document.getElementById(x).innerHTML = doc.data().authorName;
+            document.getElementById(currentLinkElement).href = "testAuthor.html?id=" + doc.id.toString();
+            console.log("Attempting ID: ", doc.id);
           }
-          count+=1; 
+          count += 1;
         });
+        console.log(count);
+        while (count <= 7) {
+          elementToHide = count.toString() + "box";
+          console.log(elementToHide);
+          document.getElementById(elementToHide).style.display = 'none';
+          count += 1;
+        }
       });
-      if (count<1){
-        document.getElementById(x).hide(); 
-      }
+
     }
 
-    function fillCharacterInfo(name){
+    function fillCharacterInfo(name) {
       charactersRef.get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          checkname=doc.data().characterNameame.toString();
-          if(checkname.value==name.value){
-            document.getElementById("defaultName").innerHTML=doc.data().characterName; 
-            document.getElementById("race").innerHTML=doc.data().race;
-            document.getElementById("charClass").innerHTML=doc.data().dndClass;
-            document.getElementById("level").innerHTML=doc.data().level;
-            document.getElementById("strength").innerHTML=doc.data().strength;
-            document.getElementById("dexterity").innerHTML=doc.data().dexterity;
-            document.getElementById("constitution").innerHTML=doc.data().constitution;
-            document.getElementById("intelligence").innerHTML=doc.data().intelligence;
-            document.getElementById("wisdom").innerHTML=doc.data().wisdom;
-            document.getElementById("charisma").innerHTML=doc.data().charisma;
-            document.getElementById("PB").innerHTML=doc.data().proficiencyBonus;
-            document.getElementById("HP").innerHTML=doc.data().hitPoints;
-            document.getElementById("AC").innerHTML=doc.data().armorClass;
-            document.getElementById("speed").innerHTML=doc.data().characterSpeed;
-            document.getElementById("init").innerHTML=doc.data().initiative;
-            document.getElementById("PP").innerHTML=doc.data().passivePerception;
-            document.getElementById("attack").innerHTML=doc.data().attacks;
-            document.getElementById("alignment").innerHTML=doc.data().alignment;
-            document.getElementById("background").innerHTML=doc.data().background;
-            document.getElementById("traits").innerHTML=doc.data().traits;
-            document.getElementById("languages").innerHTML=doc.data().languages;
-            document.getElementById("equip").innerHTML=doc.data().equipment;
-            document.getElementById("descrip").innerHTML=doc.data().description;
+          checkname = doc.data().characterNameame.toString();
+          if (checkname.value == name.value) {
+            document.getElementById("defaultName").innerHTML = doc.data().characterName;
+            document.getElementById("race").innerHTML = doc.data().race;
+            document.getElementById("charClass").innerHTML = doc.data().dndClass;
+            document.getElementById("level").innerHTML = doc.data().level;
+            document.getElementById("strength").innerHTML = doc.data().strength;
+            document.getElementById("dexterity").innerHTML = doc.data().dexterity;
+            document.getElementById("constitution").innerHTML = doc.data().constitution;
+            document.getElementById("intelligence").innerHTML = doc.data().intelligence;
+            document.getElementById("wisdom").innerHTML = doc.data().wisdom;
+            document.getElementById("charisma").innerHTML = doc.data().charisma;
+            document.getElementById("PB").innerHTML = doc.data().proficiencyBonus;
+            document.getElementById("HP").innerHTML = doc.data().hitPoints;
+            document.getElementById("AC").innerHTML = doc.data().armorClass;
+            document.getElementById("speed").innerHTML = doc.data().characterSpeed;
+            document.getElementById("init").innerHTML = doc.data().initiative;
+            document.getElementById("PP").innerHTML = doc.data().passivePerception;
+            document.getElementById("attack").innerHTML = doc.data().attacks;
+            document.getElementById("alignment").innerHTML = doc.data().alignment;
+            document.getElementById("background").innerHTML = doc.data().background;
+            document.getElementById("traits").innerHTML = doc.data().traits;
+            document.getElementById("languages").innerHTML = doc.data().languages;
+            document.getElementById("equip").innerHTML = doc.data().equipment;
+            document.getElementById("descrip").innerHTML = doc.data().description;
           }
         });
       });
@@ -362,33 +383,33 @@
       document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     });
     function setCharacterCookie(characterName, characterType) {
-    var d = new Date();
-    d.setTime(d.getTime() + (3500000 * 24 * 60 * 60 * 1000));
-    var expires = "expires: " + d.toGMTString();
-    document.characterCookie = "Character Name: " + characterName + "Character Type: "+ ";" + characterType + ";" + expires + ";path=/";
-  }
-
-  function getCharacterCookie(characterName) {
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var dc = decodedCookie.split(";");
-    for (var i = 0; i < dc.length; i++) {
-      var c = dc[i];
-      while (c.charAt(0) == ' ') {
-        c = substring(1);
-      }
-      if (c.indexOf(username) == 0) {
-        return c.substring(characterName.length, c.length);
-      }
-      return "";
+      var d = new Date();
+      d.setTime(d.getTime() + (3500000 * 24 * 60 * 60 * 1000));
+      var expires = "expires: " + d.toGMTString();
+      document.characterCookie = "Character Name: " + characterName + "Character Type: " + ";" + characterType + ";" + expires + ";path=/";
     }
-  }
 
-  function checkCharacterCookie() {
-    var name = getCharacterCookie("CharacterName");
-    if (name != "") {
-      getCharacter(name);
+    function getCharacterCookie(characterName) {
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var dc = decodedCookie.split(";");
+      for (var i = 0; i < dc.length; i++) {
+        var c = dc[i];
+        while (c.charAt(0) == ' ') {
+          c = substring(1);
+        }
+        if (c.indexOf(username) == 0) {
+          return c.substring(characterName.length, c.length);
+        }
+        return "";
+      }
     }
-  }
+
+    function checkCharacterCookie() {
+      var name = getCharacterCookie("CharacterName");
+      if (name != "") {
+        getCharacter(name);
+      }
+    }
   </script>
 </body>
 
