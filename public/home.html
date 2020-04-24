@@ -76,9 +76,9 @@
         .get()
         .then(function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
-            console.log(doc.id, " => ", doc.data());
+            //console.log(doc.id, " => ", doc.data());
             if (doc.data().password == this.password) {
-              console.log("logged in");
+              //console.log("logged in");
               loggedIn = true;
             }
             else {
@@ -103,9 +103,9 @@
         querySnapshot.forEach((doc) => {
           username=username.toString(); 
           checkusername=doc.data().username.toString()
-          console.log(doc.data().username.toString());
+          //console.log(doc.data().username.toString());
           if(checkusername.value==username.value){
-            console.log(doc.data().characterName);
+            //console.log(doc.data().characterName);
           }
         });
       });
@@ -154,11 +154,11 @@
     function checkCookie() {
       var user = getCookie("username");
       if (user != "") {
-        alert("Welcome again " + user);
+        //alert("Welcome again " + user);
         loggedIn = true;
         getCharacters(user);
       }
-      console.log("loggedIn: " + loggedIn);
+      //console.log("loggedIn: " + loggedIn);
     }
 
   </script>
@@ -208,7 +208,7 @@
         </a>
       </div>
       <div class="grid-item">
-        <a href="testChar.html"><div class="characterCard">
+        <a href="testChar.html" id="1link"><div class="characterCard">
           <div class="homeProfPic">
             <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
           </div>
@@ -218,7 +218,7 @@
         </div></a>
       </div>
       <div class="grid-item">
-        <a href="testChar.html"><div class="characterCard">
+        <a href="testChar.html" id="2link"><div class="characterCard">
           <div class="homeProfPic">
             <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
           </div>
@@ -228,7 +228,7 @@
         </div></a>
       </div>
       <div class="grid-item">
-        <a href="testChar.html"><div class="characterCard">
+        <a href="testChar.html" id="3link"><div class="characterCard">
           <div class="homeProfPic">
             <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
           </div>
@@ -241,7 +241,7 @@
   </div>
   <div class="container home">
     <div class="grid-item">
-      <a href="testChar.html"><div class="characterCard">
+      <a href="testChar.html" id="4link"><div class="characterCard">
         <div class="homeProfPic">
           <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
         </div>
@@ -251,7 +251,7 @@
       </div></a>
     </div>
       <div class="grid-item">
-        <a href="testChar.html"><div class="characterCard">
+        <a href="testChar.html" id="5link"><div class="characterCard">
           <div class="homeProfPic">
             <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
           </div>
@@ -261,7 +261,7 @@
         </div></a>
       </div>
       <div class="grid-item">
-        <a href="testChar.html"><div class="characterCard">
+        <a href="testChar.html" id="6link"><div class="characterCard">
           <div class="homeProfPic">
             <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
           </div>
@@ -271,7 +271,7 @@
         </div></a>
       </div>
       <div class="grid-item">
-        <a href="testChar.html"><div class="characterCard">
+        <a href="testChar.html" id="7link"><div class="characterCard">
           <div class="homeProfPic">
             <img class="defaultPic" src="images/default profile.png" alt="Default Profile Picture">
           </div>
@@ -283,10 +283,6 @@
     </div>
   </div>
   <script>
-    function change(array,position, desiredValue){
-      array[position]=desiredValue; 
-      return array; 
-    }
     function getCharacters(username) {
       count=1; 
       charactersRef.get().then((querySnapshot) => {
@@ -294,8 +290,11 @@
           username=username.toString(); 
           checkusername=doc.data().username.toString();
           x=count.toString(); 
+          currentLinkElement = count.toString()+"link";
           if(checkusername.value==username.value){
-            document.getElementById(x).innerHTML=doc.data().characterName; 
+            document.getElementById(x).innerHTML=doc.data().characterName;
+            document.getElementById(currentLinkElement).href = "testChar.html?id="+doc.id.toString();
+            console.log("Attempting ID: ",doc.id); 
           }
           count+=1; 
         });
@@ -305,22 +304,91 @@
           username=username.toString(); 
           checkusername=doc.data().username.toString();
           x=count.toString(); 
+          currentLinkElement = count.toString()+"link";
           if(checkusername.value==username.value){
             document.getElementById(x).innerHTML=doc.data().authorName; 
+            document.getElementById(currentLinkElement).href = "testAuthor.html?id="+doc.id.toString();
+            console.log("Attempting ID: ",doc.id); 
           }
           count+=1; 
         });
       });
-    }
-    $(document).ready(function () {
-      for (var i=0; i<7; i++){
-        var x=i.toString(); 
-        var title=document.getElementById(x).innerHTML; 
-        if(title="Name"){
-          $(x).hide(); 
-        }
+      if (count<1){
+        document.getElementById(x).hide(); 
       }
+    }
+
+    function fillCharacterInfo(name){
+      charactersRef.get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          checkname=doc.data().characterNameame.toString();
+          if(checkname.value==name.value){
+            document.getElementById("defaultName").innerHTML=doc.data().characterName; 
+            document.getElementById("race").innerHTML=doc.data().race;
+            document.getElementById("charClass").innerHTML=doc.data().dndClass;
+            document.getElementById("level").innerHTML=doc.data().level;
+            document.getElementById("strength").innerHTML=doc.data().strength;
+            document.getElementById("dexterity").innerHTML=doc.data().dexterity;
+            document.getElementById("constitution").innerHTML=doc.data().constitution;
+            document.getElementById("intelligence").innerHTML=doc.data().intelligence;
+            document.getElementById("wisdom").innerHTML=doc.data().wisdom;
+            document.getElementById("charisma").innerHTML=doc.data().charisma;
+            document.getElementById("PB").innerHTML=doc.data().proficiencyBonus;
+            document.getElementById("HP").innerHTML=doc.data().hitPoints;
+            document.getElementById("AC").innerHTML=doc.data().armorClass;
+            document.getElementById("speed").innerHTML=doc.data().characterSpeed;
+            document.getElementById("init").innerHTML=doc.data().initiative;
+            document.getElementById("PP").innerHTML=doc.data().passivePerception;
+            document.getElementById("attack").innerHTML=doc.data().attacks;
+            document.getElementById("alignment").innerHTML=doc.data().alignment;
+            document.getElementById("background").innerHTML=doc.data().background;
+            document.getElementById("traits").innerHTML=doc.data().traits;
+            document.getElementById("languages").innerHTML=doc.data().languages;
+            document.getElementById("equip").innerHTML=doc.data().equipment;
+            document.getElementById("descrip").innerHTML=doc.data().description;
+          }
+        });
+      });
+    }
+    //Cookie functions for characters 
+    $(document).ready(function () {
+      $('#characterCard').unbind('click').click(function () {
+
+        characterName = $(2).val();
+        setCharacterCookie(characterName);
+      });
     });
+    $('#logoutButton').unbind('click').click(function () {
+      document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    });
+    function setCharacterCookie(characterName, characterType) {
+    var d = new Date();
+    d.setTime(d.getTime() + (3500000 * 24 * 60 * 60 * 1000));
+    var expires = "expires: " + d.toGMTString();
+    document.characterCookie = "Character Name: " + characterName + "Character Type: "+ ";" + characterType + ";" + expires + ";path=/";
+  }
+
+  function getCharacterCookie(characterName) {
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var dc = decodedCookie.split(";");
+    for (var i = 0; i < dc.length; i++) {
+      var c = dc[i];
+      while (c.charAt(0) == ' ') {
+        c = substring(1);
+      }
+      if (c.indexOf(username) == 0) {
+        return c.substring(characterName.length, c.length);
+      }
+      return "";
+    }
+  }
+
+  function checkCharacterCookie() {
+    var name = getCharacterCookie("CharacterName");
+    if (name != "") {
+      getCharacter(name);
+    }
+  }
   </script>
 </body>
 

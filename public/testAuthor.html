@@ -184,63 +184,24 @@
         <div class="basicInfo">
             <div class="charProPic"><img src="images/default profile.png" style="max-width:100%; max-height:100%;"></div>
             <h2 id="defaultName" >Default Name</h2> 
-            <h3>Race</h3>
-            <h4 id="race">Race</h2>
-            <h3>Class</h3>
-            <h4 id="charClass">Class</h2>
-            <h3>Level</h3>
-            <h4 id="level">Level</h2>
+            <h3>Age</h3>
+            <h4 id="age">Race</h2>
+            <h3>description</h3>
+            <h4 id="description">Class</h2>
+            <h3>Gender</h3>
+            <h4 id="gender">Level</h2>
         </div>
-        <div class="abilityScoreNumbers">
-            <h3>Ability Scores</h3>
-            <h4>Strength: #</h4>
-            <h5 id="strength">Strength</h3>
-            <h4>Dexterity: #</h4>
-            <h5 id="dexterity">Dexterity</h5>
-            <h4>Constitution: </h4>
-            <h5 id="constitution">Constitution</h5>
-            <h4>Intelligence: </h4>
-            <h5 id="intelligence">Intelligence</h5>
-            <h4>Wisdom: </h4>
-            <h5 id="wisdom">Wisdom</h5>
-            <h4>Charisma: </h4>
-            <h5 id="charisma">Charisma</h5>
-        </div>
-        <div class="basicStats">
-            <h3>Proficiency Bonus: </h3>
-            <h4 id="PB">PB</h4>
-            <h3>Hit Points: </h3>
-            <h4 id="HP">HP</h4>
-            <h3>Armor Class: </h3>
-            <h4 id="AC">AC</h4>
-            <h3>Speed: </h3>
-            <h4 id="speed">Speed</h4>
-            <h3>Initiative: </h3>
-            <h4 id="init">init</h4>
-            <h3>Passive Perception: </h3>
-            <h4 id="PP">PP</h4>
-        </div>
-        <div class="attacks">
-            <h3>Attacks: </h3>
-            <h4 id="attack">attack</h4>
-        </div>
-        <div class="extraCharInfo">
-            <h3>Alignment: </h3>
-            <h4 id="alignment">aligment</h4>
-            <h3>Background: </h3>
-            <h4 id="background">background</h4>
-            <h3>Traits: </h3>
-            <h4 id="traits"></h4></h4>
-            <h3>Languages</h3>
-            <h4 id="languages">languages</h4>
-        </div>
-        <div class="equipment">
-            <h3>Equipment: </h3>
-            <h4 id="equip">equip</h4>
-        </div>
-        <div class="description">
-            <h3>Character Description: </h3>
-            <h4 id="descrip">descrip</h4>
+        <div class="thisIsAPointlessClass">
+            <h4>Motivation: </h4>
+            <h5 id="motivation">Strength</h3>
+            <h4>Physical:</h4>
+            <h5 id="physical">Dexterity</h5>
+            <h4>Profession: </h4>
+            <h5 id="profession">Constitution</h5>
+            <h4>Sex Orientation: </h4>
+            <h5 id="sexOrientation">Intelligence</h5>
+            <h4>Traits: </h4>
+            <h5 id="traits">Wisdom</h5>
         </div>
     </div>
 
@@ -250,30 +211,16 @@
         const queryString = window.location.search;
         var idQueryString = queryString.substring(4);
         console.log(idQueryString);
-        charactersRef.doc(idQueryString).get().then((querySnapshot) => {
-          document.getElementById("defaultName").innerHTML=querySnapshot.data().characterName; 
-          document.getElementById("race").innerHTML=querySnapshot.data().race;
-          document.getElementById("charClass").innerHTML=querySnapshot.data().dndClass;
-          document.getElementById("level").innerHTML=querySnapshot.data().level;
-          document.getElementById("strength").innerHTML=querySnapshot.data().strength;
-          document.getElementById("dexterity").innerHTML=querySnapshot.data().dexterity;
-          document.getElementById("constitution").innerHTML=querySnapshot.data().constitution;
-          document.getElementById("intelligence").innerHTML=querySnapshot.data().intelligence;
-          document.getElementById("wisdom").innerHTML=querySnapshot.data().wisdom;
-          document.getElementById("charisma").innerHTML=querySnapshot.data().charisma;
-          document.getElementById("PB").innerHTML=querySnapshot.data().proficiencyBonus;
-          document.getElementById("HP").innerHTML=querySnapshot.data().hitPoints;
-          document.getElementById("AC").innerHTML=querySnapshot.data().armorClass;
-          document.getElementById("speed").innerHTML=querySnapshot.data().characterSpeed;
-          document.getElementById("init").innerHTML=querySnapshot.data().initiative;
-          document.getElementById("PP").innerHTML=querySnapshot.data().passivePerception;
-          document.getElementById("attack").innerHTML=querySnapshot.data().attacks;
-          document.getElementById("alignment").innerHTML=querySnapshot.data().alignment;
-          document.getElementById("background").innerHTML=querySnapshot.data().background;
+        authorsRef.doc(idQueryString).get().then((querySnapshot) => {
+          document.getElementById("defaultName").innerHTML=querySnapshot.data().authorName; 
+          document.getElementById("age").innerHTML=querySnapshot.data().age;
+          document.getElementById("description").innerHTML=querySnapshot.data().description;
+          document.getElementById("gender").innerHTML=querySnapshot.data().gender;
+          document.getElementById("motivation").innerHTML=querySnapshot.data().motivation;
+          document.getElementById("physical").innerHTML=querySnapshot.data().physical;
+          document.getElementById("profession").innerHTML=querySnapshot.data().profession;
+          document.getElementById("sexOrientation").innerHTML=querySnapshot.data().sexOrientation;
           document.getElementById("traits").innerHTML=querySnapshot.data().traits;
-          document.getElementById("languages").innerHTML=querySnapshot.data().languages;
-          document.getElementById("equip").innerHTML=querySnapshot.data().equipment;
-          document.getElementById("descrip").innerHTML=querySnapshot.data().description;
       });
       } 
       fillCharacterInfo();
