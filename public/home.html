@@ -72,6 +72,21 @@
     //Verify User is in database, if they are set cookie
     function checkForUser(username, password) {
       loggedIn = false;
+      /*
+      usersRef.get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          username=username.toString(); 
+          checkusername=doc.data().username.toString()
+          console.log(doc.data().username.toString());
+          if(checkusername.value==username.value){
+            var checkpass = doc.data().password.toString();
+            if(checkpass.value==password.value) {
+              console.log("should log in");
+            }
+            //console.log(doc.data().characterName);
+          }
+        });
+      });*/
       usersRef.where("username", "==", this.username)
         .get()
         .then(function (querySnapshot) {
@@ -87,6 +102,7 @@
           });
           if (loggedIn) {
             setCookie(username, password);
+            window.location.href = "home.html";
           }
           else {
             alert("No login found for this username/password combination.");
@@ -175,20 +191,15 @@
     <span onclick="document.getElementById('login').style.display='none'" class="close"
       title="Close Modal">&times;</span>
     <h2>Login</h2>
-    <form class="modal-content animate" action="/action_page.php">
+    <div class="modal-content animate" >
       <!-- <div class="loginContainer"> -->
       <label for="username"><b>Username</b></label>
-      <input class="loginInput" type="text" placeholder="Enter Username" name="uername" required> <br>
+      <input class="loginInput" type="text" placeholder="Enter Username" id="username" required> <br>
 
       <label for="password"><b>Password</b></label>
-      <input class="loginInput" type="password" placeholder="Enter Password" name="password" required> <br>
+      <input class="loginInput" type="password" placeholder="Enter Password" id="password" required> <br>
 
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label> <br>
-
-      <button id="loginButton" type="submit"><b>Login</b></button> <br>
-      <span class="password"><a href="#"> Forgot password?</a></span> <br> <br>
+      <button id="loginButton"><b>Login</b></button> <br>
 
       <button id="newUserButton" onclick="document.location = 'newUser.html'" id="newUser">New User? Create an
         Account!</button> <br>
@@ -196,7 +207,7 @@
         class="cancelbutton">Cancel</button>
 
       <!-- </div> -->
-    </form>
+      </div>
   </div>
 
 
